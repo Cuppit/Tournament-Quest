@@ -1,0 +1,164 @@
+[gd_scene load_steps=5 format=3 uid="uid://cxoqha0u5h8h2"]
+
+[ext_resource type="Texture2D" uid="uid://cxmwxlh1h4cpj" path="res://assets/sprites/draft_resources/hpbarbar (3).png" id="1_sebxe"]
+[ext_resource type="Texture2D" uid="uid://dteht03tawf1e" path="res://assets/sprites/draft_resources/hpbarbar (22).png" id="2_73y0x"]
+[ext_resource type="Texture2D" uid="uid://0ke85qbfvq5w" path="res://assets/sprites/draft_resources/hpbarbar (3) (fliph).png" id="3_ngntt"]
+[ext_resource type="Texture2D" uid="uid://bjuiwdcr5yb57" path="res://assets/sprites/draft_resources/hpbarbar (22) (fliph).png" id="4_k1ugx"]
+
+[node name="BattleUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameCharacter" type="Node" parent="."]
+
+[node name="Weapons" type="Node" parent="."]
+
+[node name="Armor" type="Node" parent="."]
+
+[node name="Accessories" type="Node" parent="."]
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.259902, 0.130698, 0.123832, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Background/VBoxContainer"]
+layout_mode = 2
+
+[node name="PlayerUI" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="Name" type="Label" parent="Background/VBoxContainer/HBoxContainer/PlayerUI"]
+layout_mode = 2
+text = "NameLabel"
+horizontal_alignment = 1
+
+[node name="CurrentHP" type="Label" parent="Background/VBoxContainer/HBoxContainer/PlayerUI"]
+layout_mode = 2
+text = "HP: 3/3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Background/VBoxContainer/HBoxContainer/PlayerUI"]
+layout_mode = 2
+
+[node name="HealthBar" type="TextureProgressBar" parent="Background/VBoxContainer/HBoxContainer/PlayerUI"]
+layout_mode = 2
+size_flags_horizontal = 4
+value = 40.0
+texture_under = ExtResource("1_sebxe")
+texture_progress = ExtResource("2_73y0x")
+tint_progress = Color(0.499815, 0.525691, 0.932122, 1)
+
+[node name="BtnAttack" type="Button" parent="Background/VBoxContainer/HBoxContainer/PlayerUI"]
+layout_mode = 2
+text = "Attack "
+
+[node name="BtnGuard" type="Button" parent="Background/VBoxContainer/HBoxContainer/PlayerUI"]
+layout_mode = 2
+text = "Guard"
+
+[node name="mbtnAbilities" type="MenuButton" parent="Background/VBoxContainer/HBoxContainer/PlayerUI"]
+layout_mode = 2
+text = "Unique Abilities"
+flat = false
+
+[node name="BtnItem" type="MenuButton" parent="Background/VBoxContainer/HBoxContainer/PlayerUI"]
+layout_mode = 2
+text = "Use Item
+"
+flat = false
+
+[node name="vbEndOfBattleMsgs" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="rtlRewardsMsg" type="RichTextLabel" parent="Background/VBoxContainer/HBoxContainer/vbEndOfBattleMsgs"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "VICTORY!
+
+You find X money on the opponent.
+
+You gain X experience points.
+
+The opponent had the following treasures:
+-1st item on enemy item belt
+-2nd item on enemy item belt"
+horizontal_alignment = 1
+
+[node name="btnEndBattle" type="Button" parent="Background/VBoxContainer/HBoxContainer/vbEndOfBattleMsgs"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+text = "END BATTLE"
+
+[node name="OpponentUI" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 0
+
+[node name="Name" type="Label" parent="Background/VBoxContainer/HBoxContainer/OpponentUI"]
+layout_mode = 2
+text = "NameLabel"
+horizontal_alignment = 1
+
+[node name="OpponentPortrait" type="TextureRect" parent="Background/VBoxContainer/HBoxContainer/OpponentUI"]
+layout_mode = 2
+
+[node name="HealthBar" type="TextureProgressBar" parent="Background/VBoxContainer/HBoxContainer/OpponentUI"]
+layout_mode = 2
+value = 70.0
+fill_mode = 1
+texture_under = ExtResource("3_ngntt")
+texture_progress = ExtResource("4_k1ugx")
+tint_over = Color(0.878241, 0.877873, 0.870812, 1)
+
+[node name="OpponentDescription" type="Label" parent="Background/VBoxContainer/HBoxContainer/OpponentUI"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_vertical = 1
+text = "Info about the opponent, I think I understand the custom minimum size requirement now."
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="InfoBox" type="ColorRect" parent="Background/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+color = Color(0.0316364, 0.0940824, 0.147707, 1)
+
+[node name="BattleLog" type="RichTextLabel" parent="Background/VBoxContainer/InfoBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scroll_following = true
+horizontal_alignment = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+autoplay = true
+
+[connection signal="pressed" from="Background/VBoxContainer/HBoxContainer/PlayerUI/BtnAttack" to="." method="_on_btn_attack_pressed"]
+[connection signal="pressed" from="Background/VBoxContainer/HBoxContainer/PlayerUI/BtnGuard" to="." method="_on_btn_guard_pressed"]
+[connection signal="about_to_popup" from="Background/VBoxContainer/HBoxContainer/PlayerUI/mbtnAbilities" to="." method="_on_mbtn_abilities_about_to_popup"]
+[connection signal="about_to_popup" from="Background/VBoxContainer/HBoxContainer/PlayerUI/BtnItem" to="." method="_on_btn_item_about_to_popup"]
+[connection signal="pressed" from="Background/VBoxContainer/HBoxContainer/vbEndOfBattleMsgs/btnEndBattle" to="." method="_on_btn_end_battle_pressed"]

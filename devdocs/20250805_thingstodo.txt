@@ -1,0 +1,22 @@
+-- 08:30 --
+
+todo:
+	-finish re-implementing architecture scripts (classes, databases)
+	-begin considering structure for over-hauled main-game UI
+	-begin re-implementation of "abilities" execution script
+	-fully flesh out flow of gameplay / ability execution
+	
+----------
+
+-- 16:49 --
+
+HOW ACTIONS WORK
+
+PLAYER VS OPPONENT
+
+PLAYER ATTACKS OPPONENT
+	Attack procedure:
+		-Determine if hit
+			-if hit:
+				-Determine damage being dealt
+					-special function: calculate damage reduction?

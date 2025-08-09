@@ -1,0 +1,45 @@
+-- 08:01 --
+
+TODAY'S PROBLEM TO SOLVE: PROPER PARAMETER PASSING
+
+steps to achieve goal:
+
+	-re-implement char select ui
+		RECALL: The entire project began to break down once an attempt at 
+		pulling description data from gamecharacter class in char select
+		menu didn't work.  So:
+			-re-implement description data in gamecharacter database entries
+			themselves
+			-re-attempt to pull the data into the menu
+	
+	-re-implement char management ui
+	-pass proper character data from char select to char management ui
+	-re-implement battle ui
+	-pass proper data from char management and scenario db into battle ui
+	-re-implement abilities.gd and items.gd
+
+...
+had to stop almost immediately
+
+--11:30--
+have some time, working on carefully importing scripts and classes from 
+old project iteration ui fights 2
+
+-- 12;48 --
+Need to stop for now.  When back: need to decide how to handle character 
+inventory and item gain/removal.
+
+
+--23:01--
+inventory and item gain/removal appears to be handled for now.
+
+current problem: dynamic update of UI elements using signals
+
+WHAT I'VE LEARNED
+
+-Implement signals within GameCharacter
+-set GameCharacter to emit "this variable has changed" signals whenever changes
+to variables occur
+-connect those signals to custom functions within the UIs that use those values
+
+This is the most elegant solution

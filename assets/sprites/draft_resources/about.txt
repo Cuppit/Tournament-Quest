@@ -1,0 +1,1 @@
+This directory is for basic assets used in the "draft" phase of the project.

@@ -1,0 +1,22 @@
+-- 23:04 --
+
+A drastic change was made: stats as an enum was moved to Global instead of 
+inside of GameCharacter.  This is because the way stats are set up, the other
+classes (weapon, armor, etc.) need equal access to those properties.
+
+...
+
+-- 23:31 --
+
+Fixed a bug with the "gain_item" method where it would fail to gain anything
+that wasn't a regular item (e.g. weapons, armor, etc.).  also finished 
+fixing all the classes to use the new system of stat mod tracking 
+(e.g. a dictionary for all possible stats instead of flat properties such as
+ "damage bonus").
+
+TODO
+	-Finish Character Management UI
+		-armor + accessory buttons, functions, signal setups, etc.
+		-Item slot management
+		-debate whether to re-implement some things (like the pop-up window
+		 that appears when mousing over equipment, explaining their stats)

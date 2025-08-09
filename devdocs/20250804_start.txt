@@ -1,0 +1,42 @@
+--- TOURNAMENT QUEST ---
+
+A simple turn-based RPG style battler, where the player chooses a character and 
+engages in a sequence of battles against opponents.  
+
+GENERAL DESIGN TO-DO LIST
+
+Scenes needed:
+	-Character selection/creation screen
+	-battle selection screen
+	-player character management screen
+	-battle room
+
+Classes needed:
+	GameCharacter: holds all data for a character
+	Item: holds data, properties and functions related to items
+	
+Other:
+	-Character actions script: handles processing the logic of actions 
+	 characters can take
+	
+	-Database: A static data structure that holds all of the details of the
+	game (e.g. Characters, items)
+	
+WHAT ORDER TO BUILD ALL OF THESE COMPONENTS?
+
+Let's start with the core component of the game; THE CHARACTERS
+
+WHAT'S THE GAME ALL ABOUT?  PITTING TWO CHARACTERS AGAINST EACH OTHER
+IN FIGHT FOR DOMINANCE
+
+But in order to implement game mechanics, you have to have actual game mechanics
+defined.  Though I have pieces of a system in mind, a full rule set hasn't been
+written down.  
+
+CONCEPT: borrow loosely from the DnD model of a character's base stats being
+str,dex,con,int,wis,cha, and then having everything else that matters be a 
+function of all of these stats plus all else.
+
+...
+
+There are constantly changing things like HP, MP, inventory, items,

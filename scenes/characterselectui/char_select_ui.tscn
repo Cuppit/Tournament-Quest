@@ -1,0 +1,232 @@
+[gd_scene load_steps=6 format=3 uid="uid://k2pt6m2xs0cn"]
+
+[ext_resource type="Script" uid="uid://df0j0r3js7drc" path="res://scenes/characterselectui/char_select_ui.gd" id="1_fbg52"]
+[ext_resource type="Texture2D" uid="uid://188ddvud2r8d" path="res://assets/sprites/draft_resources/fighter.png" id="2_x4nrv"]
+[ext_resource type="Texture2D" uid="uid://cl6itc3p3b882" path="res://assets/sprites/draft_resources/wizard.png" id="3_f0wsf"]
+[ext_resource type="Texture2D" uid="uid://r8ajcbqawrci" path="res://assets/sprites/draft_resources/bandit.png" id="4_hc7pl"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_k7a4u"]
+font_size = 64
+font_color = Color(1, 1, 0.172549, 1)
+
+[node name="CharSelectUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fbg52")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.109804, 0, 0.164706, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScreenTitle" type="Label" parent="Background/VBoxContainer"]
+layout_mode = 2
+text = "SELECT YOUR CHAMPION"
+label_settings = SubResource("LabelSettings_k7a4u")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Background/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="BtnPackFighter" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer"]
+modulate = Color(1, 1, 1, 0.403922)
+layout_mode = 2
+
+[node name="BtnNameFighter" type="RichTextLabel" parent="Background/VBoxContainer/HBoxContainer/BtnPackFighter"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "FIGHTER
+"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="BtnFighter" type="TextureButton" parent="Background/VBoxContainer/HBoxContainer/BtnPackFighter"]
+layout_mode = 2
+texture_normal = ExtResource("2_x4nrv")
+
+[node name="spacer" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Background/VBoxContainer/HBoxContainer/spacer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "FIGHTER
+"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="TextureButton" type="TextureButton" parent="Background/VBoxContainer/HBoxContainer/spacer"]
+layout_mode = 2
+texture_normal = ExtResource("2_x4nrv")
+
+[node name="BtnPackSage" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer"]
+modulate = Color(1, 1, 1, 0.403922)
+layout_mode = 2
+
+[node name="NameSage" type="RichTextLabel" parent="Background/VBoxContainer/HBoxContainer/BtnPackSage"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "SAGE"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="BtnSage" type="TextureButton" parent="Background/VBoxContainer/HBoxContainer/BtnPackSage"]
+layout_mode = 2
+texture_normal = ExtResource("3_f0wsf")
+
+[node name="spacer2" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Background/VBoxContainer/HBoxContainer/spacer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "SAGE"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="TextureButton2" type="TextureButton" parent="Background/VBoxContainer/HBoxContainer/spacer2"]
+layout_mode = 2
+texture_normal = ExtResource("3_f0wsf")
+
+[node name="BtnPackBandit" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer"]
+modulate = Color(1, 1, 1, 0.403922)
+layout_mode = 2
+
+[node name="NameBandit" type="RichTextLabel" parent="Background/VBoxContainer/HBoxContainer/BtnPackBandit"]
+layout_mode = 2
+text = "BANDIT"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="BtnBandit" type="TextureButton" parent="Background/VBoxContainer/HBoxContainer/BtnPackBandit"]
+layout_mode = 2
+texture_normal = ExtResource("4_hc7pl")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Background/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Description" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="lblDescription" type="Label" parent="Background/VBoxContainer/HBoxContainer2/Description"]
+layout_mode = 2
+text = "------------------------------------"
+horizontal_alignment = 1
+
+[node name="richTxtLblDesc" type="RichTextLabel" parent="Background/VBoxContainer/HBoxContainer2/Description"]
+layout_mode = 2
+text = "
+Through much tinkering with the UI controls in the Inspector tab in Godot I think I've figured out how to keep text in parallel"
+fit_content = true
+autowrap_mode = 2
+horizontal_alignment = 1
+
+[node name="spacer" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer2"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Background/VBoxContainer/HBoxContainer2/spacer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "FIGHTER
+"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="TextureButton" type="TextureButton" parent="Background/VBoxContainer/HBoxContainer2/spacer"]
+layout_mode = 2
+texture_normal = ExtResource("2_x4nrv")
+
+[node name="ProsCons" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="lblProsCons" type="Label" parent="Background/VBoxContainer/HBoxContainer2/ProsCons"]
+layout_mode = 2
+text = "------------------------------------"
+horizontal_alignment = 1
+
+[node name="richTxtLblProsCons" type="RichTextLabel" parent="Background/VBoxContainer/HBoxContainer2/ProsCons"]
+layout_mode = 2
+text = "
+Through much tinkering with the UI controls in the Inspector tab in Godot I think I've figured out how to keep text in parallel"
+fit_content = true
+autowrap_mode = 2
+horizontal_alignment = 1
+
+[node name="spacer2" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer2"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Background/VBoxContainer/HBoxContainer2/spacer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "FIGHTER
+"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="TextureButton" type="TextureButton" parent="Background/VBoxContainer/HBoxContainer2/spacer2"]
+layout_mode = 2
+texture_normal = ExtResource("2_x4nrv")
+
+[node name="Abilities" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="lblAbilities" type="Label" parent="Background/VBoxContainer/HBoxContainer2/Abilities"]
+layout_mode = 2
+text = "------------------------------------"
+horizontal_alignment = 1
+
+[node name="RichTxtLblAbilities" type="RichTextLabel" parent="Background/VBoxContainer/HBoxContainer2/Abilities"]
+layout_mode = 2
+text = "
+Through much tinkering with the UI controls in the Inspector tab in Godot I think I've figured out how to keep text in parallel"
+fit_content = true
+autowrap_mode = 2
+horizontal_alignment = 1
+
+[node name="StartButton" type="Button" parent="Background/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 48
+text = "START"
+
+[connection signal="pressed" from="Background/VBoxContainer/HBoxContainer/BtnPackFighter/BtnFighter" to="." method="_on_btn_fighter_pressed"]
+[connection signal="pressed" from="Background/VBoxContainer/HBoxContainer/BtnPackSage/BtnSage" to="." method="_on_btn_sage_pressed"]
+[connection signal="pressed" from="Background/VBoxContainer/HBoxContainer/BtnPackBandit/BtnBandit" to="." method="_on_btn_bandit_pressed"]
+[connection signal="pressed" from="Background/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
