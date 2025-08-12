@@ -1,0 +1,10 @@
+-- 08:26 CDT --
+
+Rather than restructure most of the scripts from previous iteration, time
+has been spent importing and updating variable names/references, etc.
+
+current problem: ability cooldowns don't seem to be working right
+also lots of errors being thrown when special ability UI clicked
+
+--TODO--
+	-investigate special ability UI problems

@@ -51,7 +51,7 @@ size_flags_vertical = 0
 text = "CharacterName"
 horizontal_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="Background/VBoxContainer/hbcMainSegments/vbcLeftSeg"]
+[node name="trCharPortrait" type="TextureRect" parent="Background/VBoxContainer/hbcMainSegments/vbcLeftSeg"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0

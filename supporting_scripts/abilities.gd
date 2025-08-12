@@ -4,6 +4,7 @@ extends Node
 var rng = Global.rng
 var ItemEffects = preload("res://supporting_scripts/item_effects.gd")
 var item_effects = ItemEffects.new()
+var Stat = Global.Stat
 
 enum AbilityProps {
 	COOLDOWN,
@@ -21,24 +22,24 @@ func execute_ability(user:GameCharacter, ability_name:String="", tgt:GameCharact
 				print("  error in function 'Abilities.execute_ability(",user,ability_name,tgt,")' -- no target for the attack")
 			else:
 				Global.battle_log.append(str(user.character_name," attacks!"))
-				var roll_range = user.get_accuracy() + tgt.get_evasion()
+				var roll_range = user.get_stat(Stat.ACC) + tgt.get_stat(Stat.EVADE)
 				var attack_roll = rng.randi_range(1, roll_range)
-				if attack_roll > user.get_accuracy():
+				if attack_roll > user.get_stat(Stat.EVADE):
 					Global.battle_log.append(str(user.character_name," misses!"))
 				else:
 					#calculate damage dealt
-					var dmg_dealt = user.get_damage() + rng.randi_range(0,user.get_damage())
-					var dmg_resisted = tgt.get_armor()
+					var dmg_dealt = user.get_stat(Stat.DMG) + rng.randi_range(0,user.get_stat(Stat.DMG))
+					var dmg_resisted = tgt.get_stat(Stat.DMG_REDUC)
 					
 					var net_dmg = dmg_dealt - dmg_resisted
 					Global.battle_log.append(str(user.character_name," deals ",net_dmg," damage! (",dmg_dealt," dealt - ",dmg_resisted," reduced)"))
 					#Apply damage (ensure "negative" damage isn't applied if armor completely blocks attack)
-					tgt.curr_health -= net_dmg if net_dmg > 0 else 0
+					tgt.curr_hp -= net_dmg if net_dmg > 0 else 0
 		"guard":
-			print("BEFORE guarding, character ",user.character_name," has ",user.get_evasion()," evasion, and ",user.get_armor()," armor.")
+			print("BEFORE guarding, character ",user.character_name," has ",user.get_stat(Stat.EVADE)," evasion, and ",user.get_stat(Stat.DMG_REDUC)," armor.")
 			Global.battle_log.append(str(user.character_name," is guarding!"))
 			user.guarding=true
-			print("AFTER guarding, character ",user.character_name," has ",user.get_evasion()," evasion, and ",user.get_armor()," armor.")
+			print("AFTER guarding, character ",user.character_name," has ",user.get_stat(Stat.EVADE)," evasion, and ",user.get_stat(Stat.DMG_REDUC)," armor.")
 		
 		"Power Attack":
 			Global.battle_log.append(str(user.character_name," executes a Power Attack!"))
@@ -46,21 +47,21 @@ func execute_ability(user:GameCharacter, ability_name:String="", tgt:GameCharact
 				print("  error in function 'Abilities.execute_ability(",user,ability_name,tgt,")' -- no target for the attack")
 			else:
 				Global.battle_log.append(str(user.character_name," attacks!"))
-				var roll_range = user.get_accuracy()-2 + tgt.get_evasion()
+				var roll_range = user.get_stat(Stat.ACC)-2 + tgt.get_stat(Stat.EVADE)
 				var attack_roll = rng.randi_range(1, roll_range)
-				if attack_roll > user.get_accuracy():
+				if attack_roll > user.get_stat(Stat.ACC):
 					Global.battle_log.append(str(user.character_name," misses!"))
 				else:
 					#calculate damage dealt
 					
-					var dmg_dealt = user.get_damage() + rng.randi_range(0,user.get_damage())
+					var dmg_dealt = user.get_stat(Stat.DMG) + rng.randi_range(0,user.get_stat(Stat.DMG))
 					var powerattack_dmg = int(dmg_dealt/4)
-					var dmg_resisted = tgt.get_armor()
+					var dmg_resisted = tgt.get_stat(Stat.DMG_REDUC)
 					
 					var net_dmg = dmg_dealt+powerattack_dmg - dmg_resisted
 					Global.battle_log.append(str(" HIT! ",user.character_name," added ",powerattack_dmg," damage to the attack, totalling ",net_dmg," damage! (",dmg_dealt," dealt - ",dmg_resisted," reduced)"))
 					#Apply damage (ensure "negative" damage isn't applied if armor completely blocks attack)
-					tgt.curr_health -= net_dmg if net_dmg > 0 else 0
+					tgt.curr_hp -= net_dmg if net_dmg > 0 else 0
 		
 		"use_item":
 			if (item_name == ""):

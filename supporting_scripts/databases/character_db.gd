@@ -20,7 +20,7 @@ func build_character_db():
 									{},\
 									10,\
 									10,\
-									null,\
+									preload("res://assets/sprites/draft_resources/goblin.png"),\
 									"A short, aggressive, green-skinned humanoid.",\
 									"-Good at dodging attacks\n-Low HP\n"\
 									)
@@ -42,7 +42,7 @@ func build_character_db():
 									,{}, \
 									0,\
 									0,\
-									Sprite2D.new(),
+									preload("res://assets/sprites/draft_resources/fighter.png"),
 									"A warrior decorated with sturdy armor and a high-quality weapon",
 									"a piercing weapon or elemental attacks may overwhelm the tough exterior"
 									)
@@ -61,7 +61,33 @@ func build_character_db():
 	
 	
 
-	db["Sage"]=GameCharacter.new("Sage",{Stat.STR:3,Stat.DEX:3,Stat.CON:2,Stat.INT:5,Stat.WIS:1,Stat.CHA:1,Stat.BELT_CAP:1},"Greatsword","Gambeson","Side Satchel")
+	db["Sage"]=GameCharacter.new("Sage",{Stat.STR:3,Stat.DEX:3,Stat.CON:2,Stat.INT:5,Stat.WIS:1,Stat.CHA:1,Stat.BELT_CAP:1},"Greatsword","Gambeson","Side Satchel", \
+									{Attitude.NEUTRAL:4,Attitude.AGGRESSIVE:1,Attitude.DEFENSIVE:1},\
+									{Attitude.NEUTRAL:["The warrior stands ready.","The warrior shouts \"I'll beat your face!\"","The fighter brandishes a weapon menacingly.","The fighter is sizing you up."]\
+									 ,Attitude.AGGRESSIVE:["The warrior looks ready to charge!","The warrior postures aggressively!","You see a flash of bloodlust in the warrior's eyes!"]\
+									 ,Attitude.DEFENSIVE:["A defensive posture's exhibited.","The warrior's anticipating your next move!"]\
+									 ,Attitude.FAINTING:["The warrior's out of breath!","The warrior's struggling to stand!","The warrior appears weakened!"]\
+									 ,Attitude.DEFEATED:["The warrior collapses into a heap on the ground!","The warrior falls defeated!","You defeated the warrior!"]}\
+									,{}, \
+									0,\
+									0,\
+									preload("res://assets/sprites/draft_resources/wizard.png"),
+									"A warrior decorated with sturdy armor and a high-quality weapon",
+									"a piercing weapon or elemental attacks may overwhelm the tough exterior"
+									)
 	
 	
-	db["Bandit"]=GameCharacter.new("Bandit",{Stat.STR:3,Stat.DEX:5,Stat.CON:4,Stat.INT:3,Stat.WIS:1,Stat.CHA:1,Stat.BELT_CAP:1},"Dagger","Gambeson","Side Satchel")
+	db["Bandit"]=GameCharacter.new("Bandit",{Stat.STR:3,Stat.DEX:5,Stat.CON:4,Stat.INT:3,Stat.WIS:1,Stat.CHA:1,Stat.BELT_CAP:1},"Dagger","Gambeson","Side Satchel", \
+									{Attitude.NEUTRAL:4,Attitude.AGGRESSIVE:1,Attitude.DEFENSIVE:1},\
+									{Attitude.NEUTRAL:["The warrior stands ready.","The warrior shouts \"I'll beat your face!\"","The fighter brandishes a weapon menacingly.","The fighter is sizing you up."]\
+									 ,Attitude.AGGRESSIVE:["The warrior looks ready to charge!","The warrior postures aggressively!","You see a flash of bloodlust in the warrior's eyes!"]\
+									 ,Attitude.DEFENSIVE:["A defensive posture's exhibited.","The warrior's anticipating your next move!"]\
+									 ,Attitude.FAINTING:["The warrior's out of breath!","The warrior's struggling to stand!","The warrior appears weakened!"]\
+									 ,Attitude.DEFEATED:["The warrior collapses into a heap on the ground!","The warrior falls defeated!","You defeated the warrior!"]}\
+									,{}, \
+									0,\
+									0,\
+									preload("res://assets/sprites/draft_resources/bandit.png"),
+									"An unscrupulous mercenary specializing in unorthodox tactics",
+									"Has a hard time fighting hardy opponents with sturdy armor"
+									)

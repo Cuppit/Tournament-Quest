@@ -1,0 +1,20 @@
+-- 08:00 --
+
+Managing the item belt was another hard problem in the previous iteration
+
+The fact that item belt size is potentially affected by equipment is a 
+complicating factor.  Will copy-paste code from previous iteration, and
+make adjustments as necessary.
+
+...
+
+-- 16:17 --
+There's a situation to address: What happens when the belt size shrinks while
+there's still items in the item belt?
+answer: put them in the inventory
+
+WHERE IS THIS HANDLED?
+	-idea 1: write a function in GameCharacter that reclaims excess items
+		HOW IS THIS HANDLED?
+			-connect signal "item_belt_changed" to function "manage_item_belt"
+	-idea 2: write a function in CharacterManagement that does the same thing

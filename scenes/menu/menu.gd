@@ -12,8 +12,10 @@ func _ready():
 
 
 func _on_PlayButton_pressed() -> void:
+
 	var params = {
-		"show_progress_bar": true,
+		## --Stock parameters with game template project --
+		"show_progress_bar": false,
 		"a_number": 10,
 		"a_string": "Ciao!",
 		"an_array": [1, 2, 3, 4],
@@ -22,6 +24,8 @@ func _on_PlayButton_pressed() -> void:
 			"val": 15
 		},
 	}
+	Global.curr_scenario="testscenario"
+	Global.curr_battle=0
 	GGT.change_scene("res://scenes/characterselectui/char_select_ui.tscn", params)
 
 

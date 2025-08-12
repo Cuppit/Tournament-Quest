@@ -54,6 +54,13 @@ var attitude_msgs = {Attitude.NEUTRAL:["neutralmsg1","neutralmsg2"]\
 					 ,Attitude.FAINTING:["faintingmsg1","faintingmsg2"]\
 					 ,Attitude.DEFEATED:["deadmsg1","deadmsg2"]}
 
+var action_preferences = { Attitude.NEUTRAL:{"attack":5,"guard":1}\
+							,Attitude.AGGRESSIVE:{"attack":1,"guard":0}\
+							,Attitude.DEFENSIVE:{"guard":1}\
+							,Attitude.FAINTING:{"attack":1,"guard":1}}
+
+
+
 signal hp_updated(new_hp)
 var curr_hp:int = 1:
 	set(new_hp):
@@ -111,7 +118,7 @@ signal equipped_accessory_changed(new_acc)
 var equipped_accessory:String = "None":
 	set(new_acc):
 		equipped_accessory = new_acc
-		emit_signal('equipped_weapon_changed',equipped_accessory)
+		emit_signal('equipped_accessory_changed',equipped_accessory)
 		
 		
 ## List of special abilities the character has access to
@@ -119,13 +126,14 @@ var equipped_accessory:String = "None":
 ## Value: current number of turns remaining before cool
 var unique_abilities = {}
 
-var character_portrait = null ## To be used for determining character portrait
+var character_portrait
 var description = "(default text block for descrtiption of character)"
 var strategy = "(Default text block for strategy related to character)"
 
 
 ## Utility function, gets all equipment bonuses to the specified stat.
 func get_equip_stat_bonuses(stat:Global.Stat):
+	
 	var total = 0
 	total += Global.weaponDB.get(equipped_weapon,Global.weaponDB["None"]).stat_mods.get(stat,0) if equipped_weapon != "None" else 0
 	total += Global.armorDB.get(equipped_armor,Global.armorDB["None"]).stat_mods.get(stat,0) if equipped_armor != "None" else 0
@@ -176,14 +184,18 @@ func gain_item(item_name:String="", item_type:InvType = InvType.ITEM, equip_to_b
 			emit_signal("item_belt_updated")
 			return ## Nothing else to do, the item has been properly gained at this point
 
-	print('**NOTICE in GameCharacter(',self,"': '",character_name,').gain_item(',item_name,"): CANT add to item belt, item belt is full!  Attempting to add to inventory instead: ")
+	print('**NOTICE in GameCharacter(',self,"': '",character_name,').gain_item(',item_name,"): Not adding item to belt(either because its full, or because told not to)  Attempting to add to inventory instead: ")
 	if inv.has(item_name):
 		if typeof(inv[item_name]) == TYPE_INT:
-			inv[item_name] = (inv[item_name]+1) if inv[item_name] < 1 else 1 ## if somehow the item count became negative, this fixes the issue 
+			print('**DEBUG in GameCharacter(',self,"': '",character_name,').gain_item(',item_name,"): since item already exists in inventory, we simply add 1 to the number of that item held. ")
+			#inv[item_name] = (inv[item_name]+1) if inv[item_name] < 1 else 1 ## if somehow the item count became negative, this fixes the issue # <-- NOTE: this was causing issues, simpler incrementor seems to work fine however
+			inv[item_name] += 1
+			print('**DEBUG in GameCharacter(',self,"': '",character_name,').gain_item(',item_name,"): NEW VALUE IS: ",inv[item_name])
 		else:
 			print('**ERROR IN GameCharacter(',self,"': '",character_name,').gain_item(',item_name,"): Inventory count for item is not an integer!?!?")
 	else:
 		inv[item_name] = 1
+	print("-- new state of character '",character_name,"'s inventory: ",inventory)
 
 
 func remove_item(item_name:String="", item_type:InvType = InvType.ITEM):
@@ -199,7 +211,13 @@ func remove_item(item_name:String="", item_type:InvType = InvType.ITEM):
 			else:
 				print ("ERROR in GameCharacter.remove_item(",item_name,"): quantity is not an integer")
 
-
+## Used to ensure items lost due to item belt shrinkage get replaced into the
+## character's inventory
+func manage_item_belt_state():
+	if get_stat(Stat.BELT_CAP) < len(item_belt):
+		while get_stat(Stat.BELT_CAP) < len(item_belt):
+			gain_item(item_belt[-1])
+			item_belt.erase(item_belt[-1])
 
 ## Used for selecting any pieces of data dependent on a 
 ## weighted outcome.
@@ -224,6 +242,37 @@ func get_battle_msg():
 	var msg = rng.randi_range(0,len(attitude_msgs[current_attitude])-1)
 	return attitude_msgs[current_attitude][msg]
 
+
+func process_turn(ability_name="", target=null, item=""):
+	guarding = false # Reset guarding status before processing turn
+	if (ability_name == ""):
+		print("No ability name passed, automatically deciding action: ")
+		var selection = choose_weighted_outcome(action_preferences[current_attitude])
+		
+		# 3) Execute the chosen ability
+		Abilities.execute_ability(self, selection, target, item)
+		
+		# 4) Choose a new attitude (and adjust attitude of defeated opponent, if applicable)
+		if target != null:
+			if target.curr_hp <= 0:
+				target.current_attitude = Attitude.DEFEATED
+		if curr_hp <= 0:
+			current_attitude = Attitude.DEFEATED
+		if curr_hp < int(get_stat(Stat.MAX_HP)*fainting_threshold):
+			current_attitude = Attitude.FAINTING
+		else:
+			current_attitude = choose_weighted_outcome(personality)
+	else:
+		Abilities.execute_ability(self, ability_name, target, item)
+		if target != null:
+			if target.curr_hp <= 0:
+				target.current_attitude = Attitude.DEFEATED
+
+	
+func decrement_cooldowns():
+	pass
+
+
 ## Utility function used primarily by the "CharacterManagement.tscn" UI to 
 ## update contents of the string
 func get_stats_str_for_cha_mgmt_scr() -> String:
@@ -241,10 +290,56 @@ func get_stats_str_for_cha_mgmt_scr() -> String:
 					get_stat(Stat.DMG),"\n",\
 					get_stat(Stat.EVADE),"\n",\
 					get_stat(Stat.DMG_REDUC))
-	
 	return toreturn
 
 
+## Determines whether a specific ability may activate
+func can_activate(ability:String):
+	## Things to check:
+		#-activator has enough resources to activate the ability
+		#-There are no conditions that prevent the activator from using the ability (e.g. on cooldown)
+	var reqs = Abilities.get_ability_requirements(ability)
+	
+	## Is the ability on cooldown?
+	if unique_abilities[ability] > 0:
+		return false 
+	## Is there a mana cost involved, and can the character afford it?
+	if reqs[Abilities.AbilityProps.MP_COST] > curr_mp:
+		return false
+	## is there an HP cost involved, and can the character pay it without dying?
+	if  reqs[Abilities.AbilityProps.HP_COST] > curr_hp:
+		return false
+	## is there an item cost involved, and does the character have it on their belt?
+	if reqs[Abilities.AbilityProps.ITEM_COST] != null:
+		if reqs[Abilities.AbilityProps.ITEM_COST] not in item_belt:
+			return false
+	## if it passed all the tests, yes, the character can activate the ability.
+	return true
+	
+## returns a string explaining impediments to using a specific ability based on 
+## whether the character may use a unique ability
+func get_abi_act_impediments_as_str(ability:String):
+	var toreturn = ""
+	var reqs = Abilities.get_ability_requirements(ability)
+	if unique_abilities[ability] > 0:
+		toreturn += str("(Cooldown: ",unique_abilities[ability], " turns)")
+	
+	if reqs[Abilities.AbilityProps.MP_COST] > curr_mp:
+		toreturn += str("(Need ",reqs[Abilities.AbilityProps.MP_COST]," mana to use)")
+	
+	if reqs[Abilities.AbilityProps.HP_COST] > curr_hp:
+		toreturn += str("(Need ",reqs[Abilities.AbilityProps.HP_COST]," health to use)")
+	
+	if (reqs[Abilities.AbilityProps.ITEM_COST] != null):
+		toreturn += str("(Need ",reqs[Abilities.AbilityProps.ITEM_COST]," in belt to use)") if (reqs[Abilities.AbilityProps.ITEM_COST] not in item_belt) else null
+
+	return toreturn
+
+
+
+## TODO 20250811: Consider ramifications of adding character properties in the
+## future, particularly considering how "character_db.gd" currently works
+## (e.g. "hand-jamming" new entries).
 func _init(cname:String="None"  \
 			, stats:Dictionary = base_stats \
 			, wpn:String = "None" \
@@ -258,7 +353,8 @@ func _init(cname:String="None"  \
 			, char_port = null \
 			, desc:String = "default description text block" \
 			, strat:String = "default strategy text block" \
-			, invent = inventory
+			, invent = inventory \
+			, belt=item_belt
 		):
 	character_name=cname
 	base_stats = stats
@@ -274,11 +370,13 @@ func _init(cname:String="None"  \
 	description = desc
 	strategy = strat
 	inventory = invent
+	item_belt = belt
 	
 	curr_hp = get_stat(Stat.MAX_HP)
 	curr_mp = get_stat(Stat.MAX_MP)
-
 	
+	item_belt_updated.connect(manage_item_belt_state)
+
 func _ready():
 	print("in GameCharacter._ready() for ",self,"(",character_name,"):")
 	print("Setting curr_hp to get_stat(Stat.MAX_HP) which is: ",get_stat(Stat.MAX_HP))
@@ -290,20 +388,22 @@ func _ready():
 ## TODO 20250808: proper copying of characters from the database
 ## to new character objects was a problem in the last iteration of the game.
 ## This function has not yet been tested.  Ensure it works
-func copy_character(to_copy:GameCharacter):
-	var toreturn = GameCharacter.new(to_copy.character_name \
-								, to_copy.base_stats.duplicate(true) \
-								, to_copy.equipped_weapon \
-								, to_copy.equipped_armor \
-								, to_copy.equipped_accessory \
-								, to_copy.personality.duplicate(true) \
-								, to_copy.attitude_msgs.duplicate(true) \
-								, to_copy.unique_abilities.duplicate(true) \
-								, to_copy.money \
-								, to_copy.experience_points \
-								, to_copy.character_portrait \
-								, to_copy.description \
-								, to_copy.strategy \
-								, to_copy.inventory.duplicate(true)
+func copy_character():
+	var toreturn = GameCharacter.new(self.character_name \
+								, self.base_stats.duplicate(true) \
+								, self.equipped_weapon \
+								, self.equipped_armor \
+								, self.equipped_accessory \
+								, self.personality.duplicate(true) \
+								, self.attitude_msgs.duplicate(true) \
+								, self.unique_abilities.duplicate(true) \
+								, self.money \
+								, self.experience_points \
+								, self.character_portrait \
+								, self.description \
+								, self.strategy \
+								, self.inventory.duplicate(true)
+								, self.item_belt.duplicate(true)
 								)
+
 	return toreturn

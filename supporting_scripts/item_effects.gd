@@ -1,11 +1,12 @@
 extends Node
+var Stat = Global.Stat
 
 func use_item(user:GameCharacter, item_name:String="", tgt:GameCharacter=null):
 	match item_name:
 		"Healing Salve":
 			Global.battle_log.append(str(user.character_name," uses a healing balm!"))
-			var to_recover = tgt.get_max_health()/10
-			tgt.curr_health += to_recover
+			var to_recover = tgt.get_stat(Stat.MAX_HP)/10
+			tgt.curr_hp += to_recover
 			Global.battle_log.append(str(tgt.character_name," recovered ",to_recover," health!"))
 		
 		"Useless Item":

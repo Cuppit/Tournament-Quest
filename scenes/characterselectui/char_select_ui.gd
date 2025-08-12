@@ -10,6 +10,10 @@ enum ChosenClass {
 const HIGHLIGHT_SETTING = Color(1.00, 1.00, 1.00, 1.00)
 const TRANS_SETTING = Color(1.00, 1.00, 1.00, 0.40)
 
+## By default, the 'test scenario' is used if none is specified when this scene
+## is loaded
+var current_scenario = "testscenario"
+var current_battle = 0
 var curr_chosen_class = null
 
 ## Implementation: each character class has a description text block, a "pros/cons" block,
@@ -47,6 +51,10 @@ var descriptions = {ChosenClass.FIGHTER:{ \
 	'abilities':"(some description of abilities goes here)"}	
 	}
 
+func _ready():
+	var params = GGT.get_current_scene_data().params
+	#current_scenario = params.scenario
+	#current_battle = params.battle
 
 func select_class(chosen:ChosenClass):
 	curr_chosen_class = chosen
@@ -89,9 +97,12 @@ func _on_start_button_pressed():
 	elif curr_chosen_class == ChosenClass.BANDIT:
 		char_to_load=Global.characterDB["Bandit"]
 	
+	char_to_load = char_to_load.copy_character()
 	
 	var params = {
 		"char_to_manage": char_to_load,
+		"scenario": current_scenario,
+		"battle": current_battle,
 		#"opponent": Global.characterDB["Goblin"]
 	}
 	print(" in char_select_ui.gd.  _on_start_button_pressed():")

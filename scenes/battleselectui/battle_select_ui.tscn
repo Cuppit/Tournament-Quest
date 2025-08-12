@@ -1,0 +1,238 @@
+[gd_scene load_steps=6 format=3 uid="uid://bhtmlc6qtvyyh"]
+
+[ext_resource type="Script" uid="uid://bgmrih0ewlets" path="res://scenes/battleselectui/battle_select_ui.gd" id="1_k2txy"]
+[ext_resource type="Texture2D" uid="uid://188ddvud2r8d" path="res://assets/sprites/draft_resources/fighter.png" id="2_8lqd0"]
+[ext_resource type="Texture2D" uid="uid://basyctaiof4sf" path="res://assets/icon.svg" id="2_tp8sx"]
+[ext_resource type="Texture2D" uid="uid://cl6itc3p3b882" path="res://assets/sprites/draft_resources/wizard.png" id="3_60sqj"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_k7a4u"]
+font_size = 64
+font_color = Color(0.623408, 0.605396, 0.59764, 1)
+
+[node name="BattleSelectUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_k2txy")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.151674, 1.30103e-07, 2.70735e-08, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScreenTitle" type="Label" parent="Background/VBoxContainer"]
+layout_mode = 2
+text = "CHOOSE YOUR NEXT OPPONENT"
+label_settings = SubResource("LabelSettings_k7a4u")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Background/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="BtnPackOpponent1" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer"]
+modulate = Color(1, 1, 1, 0.403922)
+layout_mode = 2
+
+[node name="BtnNameOpponent1" type="RichTextLabel" parent="Background/VBoxContainer/HBoxContainer/BtnPackOpponent1"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "OPPONENT 1
+"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="BtnOpponent1" type="TextureButton" parent="Background/VBoxContainer/HBoxContainer/BtnPackOpponent1"]
+layout_mode = 2
+texture_normal = ExtResource("2_tp8sx")
+
+[node name="spacer" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Background/VBoxContainer/HBoxContainer/spacer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "FIGHTER
+"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="TextureButton" type="TextureButton" parent="Background/VBoxContainer/HBoxContainer/spacer"]
+layout_mode = 2
+texture_normal = ExtResource("2_8lqd0")
+
+[node name="BtnPackOpponent2" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer"]
+modulate = Color(1, 1, 1, 0.403922)
+layout_mode = 2
+
+[node name="NameOpponent2" type="RichTextLabel" parent="Background/VBoxContainer/HBoxContainer/BtnPackOpponent2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "OPPONENT 2"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="BtnOpponent2" type="TextureButton" parent="Background/VBoxContainer/HBoxContainer/BtnPackOpponent2"]
+layout_mode = 2
+texture_normal = ExtResource("2_tp8sx")
+
+[node name="spacer2" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Background/VBoxContainer/HBoxContainer/spacer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "SAGE"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="TextureButton2" type="TextureButton" parent="Background/VBoxContainer/HBoxContainer/spacer2"]
+layout_mode = 2
+texture_normal = ExtResource("3_60sqj")
+
+[node name="BtnPackOpponent3" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer"]
+modulate = Color(1, 1, 1, 0.403922)
+layout_mode = 2
+
+[node name="NameOpponent3" type="RichTextLabel" parent="Background/VBoxContainer/HBoxContainer/BtnPackOpponent3"]
+layout_mode = 2
+text = "OPPONENT 3"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="BtnOpponent3" type="TextureButton" parent="Background/VBoxContainer/HBoxContainer/BtnPackOpponent3"]
+layout_mode = 2
+texture_normal = ExtResource("2_tp8sx")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Background/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Description" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="lblDescription" type="Label" parent="Background/VBoxContainer/HBoxContainer2/Description"]
+layout_mode = 2
+text = "------------------------------------"
+horizontal_alignment = 1
+
+[node name="richTxtLblDesc" type="RichTextLabel" parent="Background/VBoxContainer/HBoxContainer2/Description"]
+layout_mode = 2
+text = "---"
+fit_content = true
+autowrap_mode = 2
+horizontal_alignment = 1
+
+[node name="spacer" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer2"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Background/VBoxContainer/HBoxContainer2/spacer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "FIGHTER
+"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="TextureButton" type="TextureButton" parent="Background/VBoxContainer/HBoxContainer2/spacer"]
+layout_mode = 2
+texture_normal = ExtResource("2_8lqd0")
+
+[node name="Strategy" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="lblStrategy" type="Label" parent="Background/VBoxContainer/HBoxContainer2/Strategy"]
+layout_mode = 2
+text = "------------------------------------"
+horizontal_alignment = 1
+
+[node name="richTxtLblStrategy" type="RichTextLabel" parent="Background/VBoxContainer/HBoxContainer2/Strategy"]
+layout_mode = 2
+text = "---"
+fit_content = true
+autowrap_mode = 2
+horizontal_alignment = 1
+
+[node name="spacer2" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer2"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Background/VBoxContainer/HBoxContainer2/spacer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "FIGHTER
+"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="TextureButton" type="TextureButton" parent="Background/VBoxContainer/HBoxContainer2/spacer2"]
+layout_mode = 2
+texture_normal = ExtResource("2_8lqd0")
+
+[node name="Rewards" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="lblRewards" type="Label" parent="Background/VBoxContainer/HBoxContainer2/Rewards"]
+layout_mode = 2
+text = "------------------------------------"
+horizontal_alignment = 1
+
+[node name="RichTxtLblRewards" type="RichTextLabel" parent="Background/VBoxContainer/HBoxContainer2/Rewards"]
+layout_mode = 2
+text = "---"
+fit_content = true
+autowrap_mode = 2
+horizontal_alignment = 1
+
+[node name="navBtnsRows" type="HBoxContainer" parent="Background/VBoxContainer"]
+layout_mode = 2
+
+[node name="CharManageButton" type="Button" parent="Background/VBoxContainer/navBtnsRows"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Back to Character Management"
+
+[node name="StartButton" type="Button" parent="Background/VBoxContainer/navBtnsRows"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 48
+text = "START"
+
+[connection signal="pressed" from="Background/VBoxContainer/HBoxContainer/BtnPackOpponent1/BtnOpponent1" to="." method="_on_btn_opponent1_pressed"]
+[connection signal="pressed" from="Background/VBoxContainer/HBoxContainer/BtnPackOpponent2/BtnOpponent2" to="." method="_on_btn_opponent2_pressed"]
+[connection signal="pressed" from="Background/VBoxContainer/HBoxContainer/BtnPackOpponent3/BtnOpponent3" to="." method="_on_btn_opponent3_pressed"]
+[connection signal="pressed" from="Background/VBoxContainer/navBtnsRows/CharManageButton" to="." method="_on_char_manage_button_pressed"]
+[connection signal="pressed" from="Background/VBoxContainer/navBtnsRows/StartButton" to="." method="_on_start_button_pressed"]
