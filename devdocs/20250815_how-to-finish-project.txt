@@ -1,0 +1,30 @@
+-- 20:11 --
+
+Before I move on to some other project, I want to at least accomplish this
+for this game: 
+	-A scenario with 5 "levels"
+		first 4 levels are options of battles to choose from (randomized each game?)
+		
+	-After level 1:
+		-Player receives rewards in the form of xp / gp
+		-player receives some kind of item
+		
+	-After level 2:
+		-player chooses an ability to unlock
+		
+	-After level 3:
+		-Player receives rewards in the form of xp / gp
+		-player receives some kind of item
+		
+	-After level 4:
+		-player chooses an ability to unlock
+		
+	-- AT LEVEL 5 --
+	
+		-player attempts to beat the boss
+		
+	WHAT TO DO WITH XP?
+	
+		-Each stat can be leveled up with additional XP, dark souls style
+		
+		something like your overall character level

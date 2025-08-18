@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cqptehqam222o"]
 
 [ext_resource type="Script" uid="uid://bvtiy2gkb3e7r" path="res://scenes/charactermanagement/character_management.gd" id="1_2awu7"]
-[ext_resource type="Texture2D" uid="uid://cl6itc3p3b882" path="res://assets/sprites/draft_resources/wizard.png" id="2_64re8"]
+[ext_resource type="Texture2D" uid="uid://dj4en2hfr1ctk" path="res://assets/sprites/draft_resources/sage.png" id="2_2awu7"]
 [ext_resource type="Texture2D" uid="uid://cxmwxlh1h4cpj" path="res://assets/sprites/draft_resources/hpbarbar (3).png" id="3_3488a"]
 [ext_resource type="Texture2D" uid="uid://dteht03tawf1e" path="res://assets/sprites/draft_resources/hpbarbar (22).png" id="4_mu5bu"]
 
@@ -55,7 +55,7 @@ horizontal_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
-texture = ExtResource("2_64re8")
+texture = ExtResource("2_2awu7")
 stretch_mode = 2
 
 [node name="lblCurrHP" type="Label" parent="Background/VBoxContainer/hbcMainSegments/vbcLeftSeg"]
@@ -67,10 +67,24 @@ horizontal_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 4
 max_value = 10.0
-value = 6.0
+value = 1.0
 texture_under = ExtResource("3_3488a")
 texture_progress = ExtResource("4_mu5bu")
 tint_progress = Color(1, 0.701333, 0.36, 1)
+
+[node name="lblCurrMP" type="Label" parent="Background/VBoxContainer/hbcMainSegments/vbcLeftSeg"]
+layout_mode = 2
+text = "MP: 0/0"
+horizontal_alignment = 1
+
+[node name="txProgBarCurrMP" type="TextureProgressBar" parent="Background/VBoxContainer/hbcMainSegments/vbcLeftSeg"]
+layout_mode = 2
+size_flags_horizontal = 4
+max_value = 10.0
+value = 2.0
+texture_under = ExtResource("3_3488a")
+texture_progress = ExtResource("4_mu5bu")
+tint_progress = Color(0.512, 0.644, 7.065, 1)
 
 [node name="lblEquipment" type="Label" parent="Background/VBoxContainer/hbcMainSegments/vbcLeftSeg"]
 layout_mode = 2
@@ -128,7 +142,8 @@ size_flags_horizontal = 6
 
 [node name="lblCharStats" type="Label" parent="Background/VBoxContainer/hbcMainSegments/vbcMidSeg"]
 layout_mode = 2
-text = "Character Stats"
+text = "--Character Stats--"
+horizontal_alignment = 1
 
 [node name="CharStats" type="HBoxContainer" parent="Background/VBoxContainer/hbcMainSegments/vbcMidSeg"]
 layout_mode = 2
@@ -140,16 +155,15 @@ size_flags_vertical = 0
 text = "Level:
 Money
 XP:
-Str: 
-Dex:
-Con:
-Int:
-Wis:
-Cha:
+
 Acc:
+Sp.Acc:
 Dmg:
+Sp.Dmg:
 Evade:
-Block:"
+Sp. Eva:
+Block:
+Sp. Bl:"
 fit_content = true
 horizontal_alignment = 2
 
@@ -158,24 +172,24 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "1
-10
-0
-3
-3
-3
-3
-6
-6
-7
-7
 1
-1"
+0
+
+5
+5
+5
+5"
 fit_content = true
+
+[node name="btnMngStats" type="Button" parent="Background/VBoxContainer/hbcMainSegments/vbcMidSeg"]
+layout_mode = 2
+text = "Manage Stats (level up)"
 
 [node name="lblItemSlots" type="Label" parent="Background/VBoxContainer/hbcMainSegments/vbcMidSeg"]
 layout_mode = 2
 size_flags_vertical = 0
-text = "Item Slots:"
+text = "--Item Slots--"
+horizontal_alignment = 1
 
 [node name="vbItemSlots" type="VBoxContainer" parent="Background/VBoxContainer/hbcMainSegments/vbcMidSeg"]
 layout_mode = 2
@@ -237,5 +251,6 @@ text = "VIEW NEXT BATTLE
 [connection signal="about_to_popup" from="Background/VBoxContainer/hbcMainSegments/vbcLeftSeg/vbcEquipment/Accessory/mbtnAccessory" to="." method="_on_mbtn_accessory_about_to_popup"]
 [connection signal="mouse_entered" from="Background/VBoxContainer/hbcMainSegments/vbcLeftSeg/vbcEquipment/Accessory/mbtnAccessory" to="." method="_on_mbtn_accessory_mouse_entered"]
 [connection signal="mouse_exited" from="Background/VBoxContainer/hbcMainSegments/vbcLeftSeg/vbcEquipment/Accessory/mbtnAccessory" to="." method="_on_mbtn_accessory_mouse_exited"]
+[connection signal="pressed" from="Background/VBoxContainer/hbcMainSegments/vbcMidSeg/btnMngStats" to="." method="_on_btn_mng_stats_pressed"]
 [connection signal="item_clicked" from="Background/VBoxContainer/hbcMainSegments/vbcRightSeg/ilAbilities" to="." method="_on_il_abilities_item_clicked"]
 [connection signal="pressed" from="Background/VBoxContainer/hbcMainSegments/vbcRightSeg/btnViewNextBattle" to="." method="_on_btn_view_next_battle_pressed"]

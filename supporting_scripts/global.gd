@@ -4,7 +4,7 @@ extends Node
 ## All of the base stats a character can have.
 enum Stat {
 	STR, DEX, CON, INT, WIS, CHA, BELT_CAP, ## <-- NOTE: These are all FUNDAMENTAL BASE stats
-	MAX_HP,MAX_MP,ACC,EVADE,DMG,DMG_REDUC, ## <-- NOTE: These are FUNCTIONAL stats that are functions of the base stats
+	MAX_HP,MAX_MP,ACC,EVADE,DMG,DMG_REDUC,SPEC_ACC,SPEC_DMG,SPEC_DMG_REDUC,SPEC_EVADE ## <-- NOTE: These are FUNCTIONAL stats that are functions of the base stats
 }
 
 ## Used as key value for choosing a specific opponent in the course of a scenario.
@@ -84,7 +84,6 @@ func generate_scenario_battle_descriptions(scenario, id):
 	
 	#for choice in BattleChoice.values():
 	var curr = scenarioDB[curr_scenario][id][BattleChoice.OPPONENT1]
-	print("value of curr:",curr)
 	desc[BattleChoice.OPPONENT1] = {}
 	desc[BattleChoice.OPPONENT1]['description'] = str("--DESCRIPTION--\n",characterDB[curr].description) if curr != null else "--DESCRIPTION--\n(no description)" 
 	desc[BattleChoice.OPPONENT1]['strategy'] = str("--STRATEGY--\n",characterDB[curr].strategy) if curr != null else "--STRATEGY--\n(no description)" 

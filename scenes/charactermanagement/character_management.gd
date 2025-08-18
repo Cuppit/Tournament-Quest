@@ -14,6 +14,8 @@ var current_scenario
 @onready var tr_char_portrait: TextureRect = $Background/VBoxContainer/hbcMainSegments/vbcLeftSeg/trCharPortrait
 @onready var lbl_curr_hp: Label = $Background/VBoxContainer/hbcMainSegments/vbcLeftSeg/lblCurrHP
 @onready var tpb_curr_hp: TextureProgressBar = $Background/VBoxContainer/hbcMainSegments/vbcLeftSeg/txProgBarCurrHP
+@onready var lbl_curr_mp: Label = $Background/VBoxContainer/hbcMainSegments/vbcLeftSeg/lblCurrMP
+@onready var tpb_curr_mp: TextureProgressBar = $Background/VBoxContainer/hbcMainSegments/vbcLeftSeg/txProgBarCurrMP
 
 
 @onready var btn_weapon: MenuButton = $Background/VBoxContainer/hbcMainSegments/vbcLeftSeg/vbcEquipment/Weapon/mbtnWeapon
@@ -83,25 +85,32 @@ func _ready() -> void:
 	
 	## This scene expects a GameCharacter object, "char_to_mng_character", as a parameter.
 	## First, ensure it is there...TODO 20250807: someday
-	char_to_mng = params.char_to_manage
+	char_to_mng = params.char_to_manage if "char_to_manage" in params.keys() else GameCharacter.new()
 	#next_battle_idx = params.battle
 	
 	# char_to_mng.curr_hp = 50 <- DEBUG CODE, delete this line when no longer needed
 	
 	## Connect relevant signals from GameCharacter to functions within this script
 	char_to_mng.hp_updated.connect(_on_char_to_mng_hp_updated)
+	char_to_mng.mp_updated.connect(_on_char_to_mng_mp_updated)
 	char_to_mng.equipped_weapon_changed.connect(_on_wpn_updated)
 	char_to_mng.equipped_armor_changed.connect(_on_amr_updated)
 	char_to_mng.equipped_accessory_changed.connect(_on_acc_updated)
 	
 	
 	## set initial values for each of the UI controls
+	
+	## manually call these updaters initially
 	_on_char_to_mng_hp_updated(char_to_mng.curr_hp) # bump the UI updater on ready
+	_on_char_to_mng_mp_updated(char_to_mng.curr_mp) # bump the UI updater on ready
+	
 	populate_item_slots() # run initial run of UI item slots
 	lbl_char_name.text = char_to_mng.character_name
 	#lbl_curr_hp.text = str(char_to_mng.curr_hp,"/",char_to_mng.get_stat(GameCharacter.Stat.MAX_HP))
 	tpb_curr_hp.max_value = char_to_mng.get_stat(Stat.MAX_HP)
 	tpb_curr_hp.value =  char_to_mng.curr_hp
+	tpb_curr_mp.max_value = char_to_mng.get_stat(Stat.MAX_MP)
+	tpb_curr_mp.value =  char_to_mng.curr_mp
 	btn_weapon.text = char_to_mng.equipped_weapon
 	btn_armor.text = char_to_mng.equipped_armor
 	btn_accessory.text = char_to_mng.equipped_accessory
@@ -116,9 +125,15 @@ func _ready() -> void:
 
 func _on_char_to_mng_hp_updated(new_hp):
 	print("well the signal worked")
-	lbl_curr_hp.text = str(new_hp,"/",char_to_mng.get_stat(Stat.MAX_HP))
+	lbl_curr_hp.text = str("HP: ",new_hp,"/",char_to_mng.get_stat(Stat.MAX_HP))
 	tpb_curr_hp.value = char_to_mng.curr_hp
 	tpb_curr_hp.max_value = char_to_mng.get_stat(Stat.MAX_HP)
+
+
+func _on_char_to_mng_mp_updated(new_mp):
+	lbl_curr_mp.text = str("MP: ",new_mp,"/",char_to_mng.get_stat(Stat.MAX_MP))
+	tpb_curr_mp.value = char_to_mng.curr_mp
+	tpb_curr_mp.max_value = char_to_mng.get_stat(Stat.MAX_MP)	
 
 
 func _on_wpn_updated(new_wpn):
@@ -276,3 +291,10 @@ func _on_btn_view_next_battle_pressed():
 		"player_character":char_to_mng
 	}
 	GGT.change_scene("res://scenes/battleselectui/battle_select_ui.tscn", params)
+
+
+func _on_btn_mng_stats_pressed():
+	var params = {
+		"char_to_mng":char_to_mng
+	}
+	GGT.change_scene("res://scenes/statmanagement/CharacterStatsUI.tscn", params)

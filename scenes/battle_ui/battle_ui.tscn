@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://ddjmggandclxm"]
+[gd_scene load_steps=7 format=3 uid="uid://ddjmggandclxm"]
 
 [ext_resource type="Script" uid="uid://c0wo67nststso" path="res://scenes/battle_ui/battle_ui.gd" id="1_73y0x"]
 [ext_resource type="Texture2D" uid="uid://cxmwxlh1h4cpj" path="res://assets/sprites/draft_resources/hpbarbar (3).png" id="1_sebxe"]
 [ext_resource type="Texture2D" uid="uid://dteht03tawf1e" path="res://assets/sprites/draft_resources/hpbarbar (22).png" id="2_73y0x"]
 [ext_resource type="Texture2D" uid="uid://0ke85qbfvq5w" path="res://assets/sprites/draft_resources/hpbarbar (3) (fliph).png" id="3_ngntt"]
 [ext_resource type="Texture2D" uid="uid://bjuiwdcr5yb57" path="res://assets/sprites/draft_resources/hpbarbar (22) (fliph).png" id="4_k1ugx"]
+[ext_resource type="RichTextEffect" uid="uid://bpbewvhcyy2nm" path="res://typewriter_text_effect.tres" id="6_ngntt"]
 
 [node name="BattleUI" type="Control"]
 layout_mode = 3
@@ -58,6 +59,12 @@ text = "HP: 3/3"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="CurrentMP" type="Label" parent="Background/VBoxContainer/HBoxContainer/PlayerUI"]
+layout_mode = 2
+text = "MP: 3/3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="trPlayerPortrait" type="TextureRect" parent="Background/VBoxContainer/HBoxContainer/PlayerUI"]
 layout_mode = 2
 
@@ -68,6 +75,14 @@ value = 40.0
 texture_under = ExtResource("1_sebxe")
 texture_progress = ExtResource("2_73y0x")
 tint_progress = Color(0.499815, 0.525691, 0.932122, 1)
+
+[node name="ManaBar" type="TextureProgressBar" parent="Background/VBoxContainer/HBoxContainer/PlayerUI"]
+layout_mode = 2
+size_flags_horizontal = 4
+value = 40.0
+texture_under = ExtResource("1_sebxe")
+texture_progress = ExtResource("2_73y0x")
+tint_progress = Color(0.431, 0.591, 8.287, 1)
 
 [node name="BtnAttack" type="Button" parent="Background/VBoxContainer/HBoxContainer/PlayerUI"]
 layout_mode = 2
@@ -95,6 +110,7 @@ size_flags_horizontal = 3
 [node name="rtlRewardsMsg" type="RichTextLabel" parent="Background/VBoxContainer/HBoxContainer/vbEndOfBattleMsgs"]
 layout_mode = 2
 size_flags_vertical = 3
+bbcode_enabled = true
 text = "VICTORY!
 
 You find X money on the opponent.
@@ -105,6 +121,7 @@ The opponent had the following treasures:
 -1st item on enemy item belt
 -2nd item on enemy item belt"
 horizontal_alignment = 1
+custom_effects = [ExtResource("6_ngntt")]
 
 [node name="btnEndBattle" type="Button" parent="Background/VBoxContainer/HBoxContainer/vbEndOfBattleMsgs"]
 layout_mode = 2
@@ -153,8 +170,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+bbcode_enabled = true
 scroll_following = true
 horizontal_alignment = 1
+custom_effects = [ExtResource("6_ngntt")]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 autoplay = true

@@ -21,20 +21,19 @@ var curr_chosen_opponent = null
 ## (e.g. portrait, name)
 func initialize_ui():
 	if opponent1 != null:
-		$Background/VBoxContainer/HBoxContainer/BtnPackOpponent1/BtnNameOpponent1.text = battle[BChoice.OPPONENT1]
+		$Background/VBoxContainer/HBoxContainer/BtnPackOpponent1/NameOpponent1.text = battle[BChoice.OPPONENT1]
 		print("texture status of battle opponent '",opponent1.character_name,"': ",opponent1.character_portrait)
 		if opponent1.character_portrait != null:
 			$Background/VBoxContainer/HBoxContainer/BtnPackOpponent1/BtnOpponent1.texture_normal = opponent1.character_portrait
 
 	if opponent2 != null:
-		$Background/VBoxContainer/HBoxContainer/BtnPackOpponent2/BtnNameOpponent2.text = battle[BChoice.OPPONENT2]
+		$Background/VBoxContainer/HBoxContainer/BtnPackOpponent2/NameOpponent2.text = battle[BChoice.OPPONENT2]
 		print("texture status of battle opponent '",opponent2.character_name,"': ",opponent2.character_portrait)
 		if opponent2.character_portrait != null:
 			$Background/VBoxContainer/HBoxContainer/BtnPackOpponent2/BtnOpponent2.texture_normal = opponent2.character_portrait
 
-
 	if opponent3 != null:
-		$Background/VBoxContainer/HBoxContainer/BtnPackOpponent3/BtnNameOpponent3.text = battle[BChoice.OPPONENT3]
+		$Background/VBoxContainer/HBoxContainer/BtnPackOpponent3/NameOpponent3.text = battle[BChoice.OPPONENT3]
 		print("texture status of battle opponent '",opponent3.character_name,"': ",opponent3.character_portrait)
 		if opponent3.character_portrait != null:
 			$Background/VBoxContainer/HBoxContainer/BtnPackOpponent3/BtnOpponent3.texture_normal = opponent3.character_portrait

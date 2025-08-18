@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://k2pt6m2xs0cn"]
+[gd_scene load_steps=7 format=3 uid="uid://k2pt6m2xs0cn"]
 
 [ext_resource type="Script" uid="uid://df0j0r3js7drc" path="res://scenes/characterselectui/char_select_ui.gd" id="1_fbg52"]
 [ext_resource type="Texture2D" uid="uid://188ddvud2r8d" path="res://assets/sprites/draft_resources/fighter.png" id="2_x4nrv"]
 [ext_resource type="Texture2D" uid="uid://cl6itc3p3b882" path="res://assets/sprites/draft_resources/wizard.png" id="3_f0wsf"]
+[ext_resource type="Texture2D" uid="uid://dj4en2hfr1ctk" path="res://assets/sprites/draft_resources/sage.png" id="3_hfbjd"]
 [ext_resource type="Texture2D" uid="uid://r8ajcbqawrci" path="res://assets/sprites/draft_resources/bandit.png" id="4_hc7pl"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_k7a4u"]
@@ -96,7 +97,7 @@ horizontal_alignment = 1
 
 [node name="BtnSage" type="TextureButton" parent="Background/VBoxContainer/HBoxContainer/BtnPackSage"]
 layout_mode = 2
-texture_normal = ExtResource("3_f0wsf")
+texture_normal = ExtResource("3_hfbjd")
 
 [node name="spacer2" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer"]
 modulate = Color(1, 1, 1, 0)

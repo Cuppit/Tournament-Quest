@@ -1,0 +1,6 @@
+[gd_resource type="RichTextEffect" script_class="TypeEffect" load_steps=2 format=3 uid="uid://bpbewvhcyy2nm"]
+
+[ext_resource type="Script" uid="uid://ca8hm54hf0e4y" path="res://typewriter.gd" id="1_6705c"]
+
+[resource]
+script = ExtResource("1_6705c")

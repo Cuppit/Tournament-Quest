@@ -1,0 +1,203 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6g4ttf6pwa54"]
+
+[ext_resource type="Script" uid="uid://ltvybhxc51ux" path="res://scenes/statmanagement/character_stats_ui.gd" id="1_6re3q"]
+
+[node name="CharacterStatsUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6re3q")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -223.0
+offset_top = -228.5
+offset_right = 223.0
+offset_bottom = 228.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="LevelLabel" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Level: 1"
+
+[node name="XpLabel" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "XP: 50"
+
+[node name="LevelUpCostLabel" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Cost to Level Up: 2"
+
+[node name="BtnsContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/BtnsContainer"]
+layout_mode = 2
+
+[node name="IncreaseSTRButton" type="Button" parent="HBoxContainer/VBoxContainer/BtnsContainer/HBoxContainer"]
+layout_mode = 2
+text = "Level Up"
+
+[node name="STRLabel" type="Label" parent="HBoxContainer/VBoxContainer/BtnsContainer/HBoxContainer"]
+layout_mode = 2
+text = "STR: 1"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/BtnsContainer"]
+layout_mode = 2
+
+[node name="IncreaseDEXButton" type="Button" parent="HBoxContainer/VBoxContainer/BtnsContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Level Up"
+
+[node name="DEXLabel" type="Label" parent="HBoxContainer/VBoxContainer/BtnsContainer/HBoxContainer2"]
+layout_mode = 2
+text = "DEX: 1"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/BtnsContainer"]
+layout_mode = 2
+
+[node name="IncreaseCONButton" type="Button" parent="HBoxContainer/VBoxContainer/BtnsContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Level Up"
+
+[node name="CONLabel" type="Label" parent="HBoxContainer/VBoxContainer/BtnsContainer/HBoxContainer3"]
+layout_mode = 2
+text = "CON: 1"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/BtnsContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="IncreaseINTButton" type="Button" parent="HBoxContainer/VBoxContainer/BtnsContainer/HBoxContainer4"]
+layout_mode = 2
+text = "Level Up"
+
+[node name="INTLabel" type="Label" parent="HBoxContainer/VBoxContainer/BtnsContainer/HBoxContainer4"]
+layout_mode = 2
+text = "INT: 1"
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/BtnsContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="IncreaseWISButton" type="Button" parent="HBoxContainer/VBoxContainer/BtnsContainer/HBoxContainer5"]
+layout_mode = 2
+text = "Level Up"
+
+[node name="WISLabel" type="Label" parent="HBoxContainer/VBoxContainer/BtnsContainer/HBoxContainer5"]
+layout_mode = 2
+text = "WIS: 1"
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/BtnsContainer"]
+layout_mode = 2
+
+[node name="IncreaseCHAButton" type="Button" parent="HBoxContainer/VBoxContainer/BtnsContainer/HBoxContainer6"]
+layout_mode = 2
+text = "Level Up"
+
+[node name="CHALabel" type="Label" parent="HBoxContainer/VBoxContainer/BtnsContainer/HBoxContainer6"]
+layout_mode = 2
+text = "CHA: 1"
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "---
+
+
+"
+horizontal_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="lblfuncStatHeader" type="Label" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "--------- Characteristic Statistics ---------"
+
+[node name="rtlMaxHP" type="RichTextLabel" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Max HP: 1"
+horizontal_alignment = 2
+
+[node name="rtlMaxMP" type="RichTextLabel" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Max MP: 1"
+horizontal_alignment = 2
+
+[node name="rtlAccuracy" type="RichTextLabel" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Accuracy: 1"
+horizontal_alignment = 2
+
+[node name="rtlDamage" type="RichTextLabel" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Damage: 1"
+horizontal_alignment = 2
+
+[node name="rtlEvade" type="RichTextLabel" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Evade: 1"
+horizontal_alignment = 2
+
+[node name="rtlDamageReduc" type="RichTextLabel" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Damage Reduction: 1"
+horizontal_alignment = 2
+
+[node name="rtlSpecAccuracy" type="RichTextLabel" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+text = " Accuracy: 1"
+horizontal_alignment = 2
+
+[node name="rtlSpecDamage" type="RichTextLabel" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Special Damage: 1"
+horizontal_alignment = 2
+
+[node name="rtlSpecEvade" type="RichTextLabel" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Special Evade: 1"
+horizontal_alignment = 2
+
+[node name="rtlSpecDamageReduc" type="RichTextLabel" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Special Dmg Reduction: 1"
+horizontal_alignment = 2
+
+[node name="btnBackToCharMgmt" type="Button" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "BACK TO 
+CHARACTER MANAGEMENT"
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/BtnsContainer/HBoxContainer/IncreaseSTRButton" to="." method="_on_STRButton_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/BtnsContainer/HBoxContainer2/IncreaseDEXButton" to="." method="_on_DEXButton_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/BtnsContainer/HBoxContainer3/IncreaseCONButton" to="." method="_on_CONButton_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/BtnsContainer/HBoxContainer4/IncreaseINTButton" to="." method="_on_INTButton_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/BtnsContainer/HBoxContainer5/IncreaseWISButton" to="." method="_on_WISButton_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/BtnsContainer/HBoxContainer6/IncreaseCHAButton" to="." method="_on_CHAButton_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer2/btnBackToCharMgmt" to="." method="_on_btn_back_to_char_mgmt_pressed"]

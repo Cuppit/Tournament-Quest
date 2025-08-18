@@ -1,0 +1,5 @@
+-- 20:47 --
+
+Worked on and off.  Managed:
+	
+	-Basic progression system (boost stats with XP)

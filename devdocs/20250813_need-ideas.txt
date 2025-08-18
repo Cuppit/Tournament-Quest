@@ -1,0 +1,15 @@
+-- 18:22 --
+
+In order to flesh out abilities that do interesting things, the way abilities 
+work needs to be reworked.  It seems abilities have gotten complicated enough
+conceptually that it would be beneficial for them to be a class in of
+themselves.  
+
+Indeed, abilities must be wrapped up into a class, for the functions of them
+are 
+
+INCORPORATING MP AS A RESOURCE
+
+TODO
+	-Adjust character management UI to reflect/accommodate current MP of characters
+	-Adjust Battle UI to reflect current MP of player

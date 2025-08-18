@@ -2,6 +2,13 @@ extends Node
 
 class_name GameCharacter
 
+const DEFAULT_ACTION_PREFS = { Attitude.NEUTRAL:{"attack":5,"guard":1}\
+							,Attitude.AGGRESSIVE:{"attack":1,"guard":0}\
+							,Attitude.DEFENSIVE:{"guard":1}\
+							,Attitude.FAINTING:{"attack":1,"guard":1}}
+
+
+
 var Stat = Global.Stat
 
 enum InvType{
@@ -25,7 +32,7 @@ var rng = Global.rng
 ## STAT_MULTIPLIER: This is a constant tweaked experimentally to try and balance
 ## the impact a character's stats have on how effectively powerful they are.
 ## It's incorporated into functions like "max HP".   
-const STAT_MULTIPLIER = 54  
+const STAT_MULTIPLIER = 27  
 ## percent HP a character needs to be at in order to express an attitude of "fainting"
 var fainting_threshold = 0.33
 
@@ -155,7 +162,7 @@ func get_stat(toget:Global.Stat):
 		Stat.MAX_HP:
 			toreturn += get_stat(Stat.CON)*STAT_MULTIPLIER
 		Stat.MAX_MP:
-			toreturn += get_stat(Stat.INT)*2
+			toreturn += 2*get_stat(Stat.INT) + int(get_stat(Stat.WIS)/2)
 		Stat.ACC:
 			toreturn += 2*get_stat(Stat.DEX) + get_stat(Stat.STR)
 		Stat.EVADE:
@@ -164,10 +171,25 @@ func get_stat(toget:Global.Stat):
 			toreturn += 2*get_stat(Stat.STR) + get_stat(Stat.DEX)
 		Stat.DMG_REDUC:
 			toreturn += get_stat(Stat.CON)/2 + get_stat(Stat.STR)/4
+		Stat.SPEC_ACC:
+			toreturn += 2*get_stat(Stat.CHA) + get_stat(Stat.INT)
+		Stat.SPEC_DMG:
+			toreturn += 2*get_stat(Stat.INT) + get_stat(Stat.WIS)
+		Stat.SPEC_DMG_REDUC:
+			toreturn += get_stat(Stat.WIS)/2 + get_stat(Stat.INT)/4
+		Stat.SPEC_EVADE:
+			toreturn += get_stat(Stat.CHA)
 		_:
 			null 
 	return toreturn if toreturn > 1 else 1
 
+## Returns the level this character is currently at
+## FORMULA FOR CHARACTER LEVEL: sum of all 6 base stats (STR, DEX, CON, INT, WIS, CHA)
+func get_char_lvl() -> int:
+	var toreturn = 0
+	for stat in base_stats.keys():
+		toreturn += base_stats[stat] if stat != Global.Stat.BELT_CAP else 0
+	return toreturn - 5
 
 ## GAIN and REMOVE item functions, perhaps better worded as ADD and DELETE item
 ## 
@@ -246,7 +268,7 @@ func get_battle_msg():
 func process_turn(ability_name="", target=null, item=""):
 	guarding = false # Reset guarding status before processing turn
 	if (ability_name == ""):
-		print("No ability name passed, automatically deciding action: ")
+		print("No ability name passed, automatically deciding action for ",character_name,":")
 		var selection = choose_weighted_outcome(action_preferences[current_attitude])
 		
 		# 3) Execute the chosen ability
@@ -270,7 +292,10 @@ func process_turn(ability_name="", target=null, item=""):
 
 	
 func decrement_cooldowns():
-	pass
+	for ability in unique_abilities.keys():
+		unique_abilities[ability] -= 1
+		if unique_abilities[ability] < 0:
+			unique_abilities[ability] = 0
 
 
 ## Utility function used primarily by the "CharacterManagement.tscn" UI to 
@@ -337,6 +362,7 @@ func get_abi_act_impediments_as_str(ability:String):
 
 
 
+
 ## TODO 20250811: Consider ramifications of adding character properties in the
 ## future, particularly considering how "character_db.gd" currently works
 ## (e.g. "hand-jamming" new entries).
@@ -347,6 +373,7 @@ func _init(cname:String="None"  \
 			, access:String = "None" \
 			, person:Dictionary = personality \
 			, att_msgs:Dictionary = attitude_msgs \
+			, act_prefs:Dictionary = action_preferences
 			, uniq_abil:Dictionary = unique_abilities \
 			, muns:int = 0 \
 			, xp:int = 0 \
@@ -363,6 +390,7 @@ func _init(cname:String="None"  \
 	equipped_accessory = access
 	personality = person
 	attitude_msgs = att_msgs
+	action_preferences = act_prefs
 	unique_abilities = uniq_abil
 	money = muns
 	experience_points = xp
@@ -396,6 +424,7 @@ func copy_character():
 								, self.equipped_accessory \
 								, self.personality.duplicate(true) \
 								, self.attitude_msgs.duplicate(true) \
+								, self.action_preferences.duplicate(true) \
 								, self.unique_abilities.duplicate(true) \
 								, self.money \
 								, self.experience_points \

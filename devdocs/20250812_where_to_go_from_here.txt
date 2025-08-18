@@ -1,0 +1,30 @@
+-- 23:29 CDT --
+
+INTENT: create a scenario with 5 battles, culminating in a boss battle.
+
+BATTLE 1:
+	Choices:
+		-Goblin
+		-Wolf
+		-Dire Rat
+	
+BATTLE 2:
+	Choices:
+		-something high in hp
+		-something low in hp, but with high evasion
+		-something that inflicts status effects?
+	
+BATTLE 3:
+	Choices:
+		-Goblin
+		-Dire Rat
+		
+BATTLE 4:
+	Choices:
+		-Who knows?
+		
+BATTLE 5:
+	Choices:
+		-only ROCKFIST the TERRIBLE
+			Description : 7 foot tall orc whose never lost a fight in the arena
+			

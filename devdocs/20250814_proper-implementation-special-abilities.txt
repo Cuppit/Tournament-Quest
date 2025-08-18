@@ -1,0 +1,29 @@
+-- 12:22 --
+
+The proper implementation of special abilities requires an ability class, and
+an associated dictionary, abilityDB, which holds the static properties of 
+each special ability.  	
+
+WHY?
+
+Programatically, the *GameCharacter* class should be responsible for deducting
+the cost of activating it's own abilities.  However, as it stands, the 
+abilities script has a lot of functions added to perform this functionality.
+
+So, to keep the content organized, it is handled in this way.
+
+CAN THE ACTUAL CODE FOR THE EFFECTS AND EXECUTION OF THE ABILITY BE INCLUDED
+IN THIS DATABASE/DICTIONARY?
+
+I don't see at this time how that's possible; it's just going to be one giant
+switch case in the meantime to handle the code for every ability that's 
+activated. 
+
+-------------
+
+--20:07--
+
+Disregard all that. Kludged in MP consumption into Abilities.gd as it's currently
+written.  Next task:
+	-Creating abilities for opponents
+	-coaxing them into using their abilities/items

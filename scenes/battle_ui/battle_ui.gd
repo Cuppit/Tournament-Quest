@@ -38,6 +38,7 @@ func pass_turn():
 		update_battle_log(str(player.character_name," has fallen!"))
 		current_turn = Turn.OPPONENT
 		curr_battle_state = BattleState.PLAYER_LOST
+		process_end_of_battle()
 		update_ui()
 		return
 	elif opponent.curr_hp <=0: 
@@ -79,7 +80,7 @@ func update_battle_log(msg=""):
 func process_end_of_battle():
 	var rewardsmsg = ""
 	if curr_battle_state == BattleState.PLAYER_WON:
-		rewardsmsg = str("VICTORY!\n\n")
+		rewardsmsg = str("[type speed=40]VICTORY!\n\n")
 		rewardsmsg += str(" You gain ",opponent.experience_points," experience points!\n\n")
 		if opponent.money > 0:
 			rewardsmsg += str("You find ",opponent.money," money on the opponent.\n\n")
@@ -91,14 +92,14 @@ func process_end_of_battle():
 		## Give player the appropriate rewards
 		print("PLAYER EXPERIENCE POINTS:",player.experience_points)
 		
-		## TODO 20250804: Something's causing player.experience_points to be set to "null" when it
-		## should be an integer value.  Identify what that is
 		if player.experience_points == null:
 			player.experience_points = 0
 		player.experience_points += opponent.experience_points
 		player.money += opponent.money
 		for item in opponent.item_belt:
 			player.gain_item(item)
+		
+		
 	
 	if curr_battle_state == BattleState.PLAYER_LOST:
 		rewardsmsg = str("DEFEAT!\n\n")
@@ -128,9 +129,16 @@ func update_ui():
 	# Update player's current HP
 	$Background/VBoxContainer/HBoxContainer/PlayerUI/CurrentHP.text = str("HP: ",player.curr_hp,"/",player.get_stat(Stat.MAX_HP))
 	
+	# Update player's current MP
+	$Background/VBoxContainer/HBoxContainer/PlayerUI/CurrentMP.text = str("MP: ",player.curr_mp,"/",player.get_stat(Stat.MAX_MP))
 	# Update player's health bar
 	$Background/VBoxContainer/HBoxContainer/PlayerUI/HealthBar.max_value = player.get_stat(Stat.MAX_HP)
 	$Background/VBoxContainer/HBoxContainer/PlayerUI/HealthBar.value = player.curr_hp
+	
+	# Update player's mana bar
+	$Background/VBoxContainer/HBoxContainer/PlayerUI/ManaBar.max_value = player.get_stat(Stat.MAX_MP)
+	$Background/VBoxContainer/HBoxContainer/PlayerUI/ManaBar.value = player.curr_mp
+	
 	
 	# Update whether the player's buttons are clickable
 	$Background/VBoxContainer/HBoxContainer/PlayerUI/BtnAttack.disabled=false if current_turn==Turn.PLAYER else true
@@ -176,11 +184,6 @@ func _ready():
 		print("in MAIN_GAME_UI DEBUGGING: trying to clone '",params.get("opponent").character_name,"':")
 		print(params.get("opponent").character_name," has these msgs: ",params.get("opponent").attitude_msgs)
 		
-		## TODO 20250804: There's a problem with clone character, in that it seems Godot can't "deep copy" 
-		## nested dictionaries, which was assumed to be the case when designing character properties.
-		## figure out how to properly copy this data in order to get clone_character working properly.
-		#opponent = Global.clone_character(params.get("opponent"))
-		#opponent = Global.scenarioDB[Global.curr_scenario][Global.curr_battle]
 		opponent = params.opponent
 		
 	## Otherwise, use this placeholder data for scene testing
@@ -215,10 +218,10 @@ func _on_btn_guard_pressed():
 
 
 func _on_battle_log_updated():
-		## clear log before re-filling
-	$Background/VBoxContainer/InfoBox/BattleLog.text = ""
-	for x in Global.battle_log:
-		$Background/VBoxContainer/InfoBox/BattleLog.text += (x+'\n')
+	## clear log before re-filling
+	$Background/VBoxContainer/InfoBox/BattleLog.text += str("[type]",Global.battle_log[-1])
+	#for x in Global.battle_log:
+#		$Background/VBoxContainer/InfoBox/BattleLog.text += (x+'\n')
 
 
 ## Populate MenuButton with player's items on player character's item belt
@@ -240,6 +243,8 @@ func _on_item_selected(id : int) -> void:
 
 
 func _on_btn_end_battle_pressed():
+	## Clear battle log after every battle
+	Global.battle_log=[""]
 	var params = {
 		"char_to_manage": player
 	}
@@ -261,7 +266,7 @@ func _on_mbtn_abilities_about_to_popup():
 			$Background/VBoxContainer/HBoxContainer/PlayerUI/mbtnAbilities.get_popup().set_item_text(id, str(ability,player.get_abi_act_impediments_as_str(ability)))
 		id +=1 
 	$Background/VBoxContainer/HBoxContainer/PlayerUI/mbtnAbilities.get_popup().id_pressed.connect(_on_ability_selected)
-	print('PLAYER ITEM MENU POPPING UP')
+	print('PLAYER ABILITIES MENU POPPING UP')
 	
 
 func _on_ability_selected(id : int):
