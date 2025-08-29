@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://ddjmggandclxm"]
+[gd_scene load_steps=8 format=3 uid="uid://ddjmggandclxm"]
 
 [ext_resource type="Script" uid="uid://c0wo67nststso" path="res://scenes/battle_ui/battle_ui.gd" id="1_73y0x"]
 [ext_resource type="Texture2D" uid="uid://cxmwxlh1h4cpj" path="res://assets/sprites/draft_resources/hpbarbar (3).png" id="1_sebxe"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://0ke85qbfvq5w" path="res://assets/sprites/draft_resources/hpbarbar (3) (fliph).png" id="3_ngntt"]
 [ext_resource type="Texture2D" uid="uid://bjuiwdcr5yb57" path="res://assets/sprites/draft_resources/hpbarbar (22) (fliph).png" id="4_k1ugx"]
 [ext_resource type="RichTextEffect" uid="uid://bpbewvhcyy2nm" path="res://typewriter_text_effect.tres" id="6_ngntt"]
+[ext_resource type="PackedScene" uid="uid://dpflq34s5wibd" path="res://scenes/animation/animation.tscn" id="7_k1ugx"]
 
 [node name="BattleUI" type="Control"]
 layout_mode = 3
@@ -174,6 +175,10 @@ bbcode_enabled = true
 scroll_following = true
 horizontal_alignment = 1
 custom_effects = [ExtResource("6_ngntt")]
+
+[node name="Animation" parent="." instance=ExtResource("7_k1ugx")]
+visible = false
+position = Vector2(574, 276)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 autoplay = true

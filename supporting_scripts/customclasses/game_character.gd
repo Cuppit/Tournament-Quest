@@ -181,6 +181,9 @@ func get_stat(toget:Global.Stat):
 			toreturn += get_stat(Stat.CHA)
 		_:
 			null 
+	if toget in [Stat.EVADE,Stat.DMG_REDUC] and guarding:
+		print ("--in GameCharacter.get_stat(): SUCCESSFULLY detected guarding is on!")
+		return int((toreturn*4)/3) if int((toreturn*4)/3)> 2 else 2
 	return toreturn if toreturn > 1 else 1
 
 ## Returns the level this character is currently at
@@ -270,8 +273,20 @@ func process_turn(ability_name="", target=null, item=""):
 	if (ability_name == ""):
 		print("No ability name passed, automatically deciding action for ",character_name,":")
 		var selection = choose_weighted_outcome(action_preferences[current_attitude])
-		
+		if selection == "use_item":
+			if len(item_belt)>0:
+				item=item_belt[0]
+		print("  **In ",character_name,"'s GameCharacter.process_turn(",ability_name,",",target,",",item,"): what happens when character tries to use this ability? SELECTION=",selection)
+		if (not can_activate(selection, item)):
+			## For now, enemy simply flips a coin to either attack or guard. TODO 20250819: make enemy default to a different likely ability instead of simply "guarding"
+			
+			selection = "guard" if rng.randi_range(1, 2) == 1 else "attack"
+			print("  **In ",character_name,"'s GameCharacter.process_turn(",ability_name,",",target,",",item,"): character could NOT use the initial selection, new selection is:",selection)
 		# 3) Execute the chosen ability
+		if selection == "use_item" and item=="":
+			if len(item_belt)>0:
+				item=item_belt[0] ## Simply select the item at the top of the item belt. TODO 20250819: Make a more sophisticated method of determining what item on it's belt an enemy would choose based on its strategy.
+			
 		Abilities.execute_ability(self, selection, target, item)
 		
 		# 4) Choose a new attitude (and adjust attitude of defeated opponent, if applicable)
@@ -319,10 +334,26 @@ func get_stats_str_for_cha_mgmt_scr() -> String:
 
 
 ## Determines whether a specific ability may activate
-func can_activate(ability:String):
-	## Things to check:
+func can_activate(ability:String, item_name:String=""):
+	if ability in ["attack","guard"]:
+		return true
+		## In the future, there may be times when the basic abilities
+		## might not be useable.  TODO 20250819: implement more sophisticated
+		## checks to determine if basic things are useable.
 		#-activator has enough resources to activate the ability
-		#-There are no conditions that prevent the activator from using the ability (e.g. on cooldown)
+		#-There are no conditions that prevent the activator from using the ability (e.g. on cooldown)	
+	
+	if ability == "use_item":
+		if item_name in item_belt:
+			return true
+		else:
+			return false
+	
+	## If this ability is not listed in unique abilitiies this character possesses...
+	if ability not in unique_abilities.keys():
+		## don't use them.
+		return false
+	
 	var reqs = Abilities.get_ability_requirements(ability)
 	
 	## Is the ability on cooldown?

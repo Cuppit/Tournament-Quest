@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://1kd40u3ytwg6"]
 
-[ext_resource type="RichTextEffect" uid="uid://bpbewvhcyy2nm" path="res://typewriter_text_effect.tres" id="1_1misr"]
+[ext_resource type="RichTextEffect" uid="uid://bpbewvhcyy2nm" path="res://typewriter_text_effect.tres" id="1_li1ta"]
 
 [node name="Typewriterexperiment" type="Control"]
 layout_mode = 3
@@ -15,6 +15,5 @@ layout_mode = 0
 offset_right = 298.0
 offset_bottom = 152.0
 bbcode_enabled = true
-text = "[type]This is some rich text.
-"
-custom_effects = [ExtResource("1_1misr")]
+text = "[type]This is some rich text."
+custom_effects = [ExtResource("1_li1ta")]

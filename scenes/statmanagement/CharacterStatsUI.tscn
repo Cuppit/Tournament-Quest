@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://c6g4ttf6pwa54"]
+[gd_scene load_steps=3 format=3 uid="uid://c6g4ttf6pwa54"]
 
 [ext_resource type="Script" uid="uid://ltvybhxc51ux" path="res://scenes/statmanagement/character_stats_ui.gd" id="1_6re3q"]
+[ext_resource type="Theme" uid="uid://b3kq74llqlv3x" path="res://assets/themes/MinimalisticUI/MinimalUI.tres" id="1_h71cp"]
 
 [node name="CharacterStatsUI" type="Control"]
 layout_mode = 3
@@ -9,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_h71cp")
 script = ExtResource("1_6re3q")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
@@ -34,7 +36,7 @@ text = "Level: 1"
 
 [node name="XpLabel" type="Label" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "XP: 50"
+text = "EXP: 50"
 
 [node name="LevelUpCostLabel" type="Label" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -55,6 +57,7 @@ layout_mode = 2
 text = "STR: 1"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/BtnsContainer"]
+visible = false
 layout_mode = 2
 
 [node name="IncreaseDEXButton" type="Button" parent="HBoxContainer/VBoxContainer/BtnsContainer/HBoxContainer2"]

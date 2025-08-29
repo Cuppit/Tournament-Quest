@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cjveverbgwlc7"]
+
+[ext_resource type="PackedScene" uid="uid://ddjmggandclxm" path="res://scenes/battle_ui/battle_ui.tscn" id="1_phijg"]
+
+[node name="Horror" type="Node"]
+
+[node name="BattleUI" parent="." instance=ExtResource("1_phijg")]

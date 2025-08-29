@@ -17,7 +17,7 @@ func _ready():
 # Update the UI elements
 func update_ui():
 	$HBoxContainer/VBoxContainer/LevelLabel.text = "Level: " + str(char_to_mng.get_char_lvl())
-	$HBoxContainer/VBoxContainer/XpLabel.text = "XP: " + str(char_to_mng.experience_points)
+	$HBoxContainer/VBoxContainer/XpLabel.text = "EXP: " + str(char_to_mng.experience_points)
 	$HBoxContainer/VBoxContainer/LevelUpCostLabel.text = "Cost to Level Up: " + str(char_to_mng.get_char_lvl() + 1)
 	#$HBoxContainer/VBoxContainer/HBoxContainer.get_node(stat + "Label").text = stat + ": " + str(stats[stat])
 
@@ -58,17 +58,17 @@ func update_ui():
 	
 	else:
 		var to_lvl = (char_to_mng.get_char_lvl() - char_to_mng.experience_points)+1
-		$HBoxContainer/VBoxContainer/BtnsContainer/HBoxContainer/IncreaseSTRButton.text = str("Level Up (need ",to_lvl," more XP")
+		$HBoxContainer/VBoxContainer/BtnsContainer/HBoxContainer/IncreaseSTRButton.text = str("Level Up")
 		$HBoxContainer/VBoxContainer/BtnsContainer/HBoxContainer/IncreaseSTRButton.disabled = true
-		$HBoxContainer/VBoxContainer/BtnsContainer/HBoxContainer2/IncreaseDEXButton.text = str("Level Up (need ",to_lvl," more XP")
+		$HBoxContainer/VBoxContainer/BtnsContainer/HBoxContainer2/IncreaseDEXButton.text = str("Level Up")
 		$HBoxContainer/VBoxContainer/BtnsContainer/HBoxContainer2/IncreaseDEXButton.disabled = true
-		$HBoxContainer/VBoxContainer/BtnsContainer/HBoxContainer3/IncreaseCONButton.text = str("Level Up (need ",to_lvl," more XP")
+		$HBoxContainer/VBoxContainer/BtnsContainer/HBoxContainer3/IncreaseCONButton.text = str("Level Up")
 		$HBoxContainer/VBoxContainer/BtnsContainer/HBoxContainer3/IncreaseCONButton.disabled = true
-		$HBoxContainer/VBoxContainer/BtnsContainer/HBoxContainer4/IncreaseINTButton.text = str("Level Up (need ",to_lvl," more XP")
+		$HBoxContainer/VBoxContainer/BtnsContainer/HBoxContainer4/IncreaseINTButton.text = str("Level Up")
 		$HBoxContainer/VBoxContainer/BtnsContainer/HBoxContainer4/IncreaseINTButton.disabled = true
-		$HBoxContainer/VBoxContainer/BtnsContainer/HBoxContainer5/IncreaseWISButton.text = str("Level Up (need ",to_lvl," more XP")
+		$HBoxContainer/VBoxContainer/BtnsContainer/HBoxContainer5/IncreaseWISButton.text = str("Level Up")
 		$HBoxContainer/VBoxContainer/BtnsContainer/HBoxContainer5/IncreaseWISButton.disabled = true
-		$HBoxContainer/VBoxContainer/BtnsContainer/HBoxContainer6/IncreaseCHAButton.text = str("Level Up (need ",to_lvl," more XP")
+		$HBoxContainer/VBoxContainer/BtnsContainer/HBoxContainer6/IncreaseCHAButton.text = str("Level Up")
 		$HBoxContainer/VBoxContainer/BtnsContainer/HBoxContainer6/IncreaseCHAButton.disabled = true
 	
 # Function to  a stat

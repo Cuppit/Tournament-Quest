@@ -80,6 +80,10 @@ func update_battle_log(msg=""):
 func process_end_of_battle():
 	var rewardsmsg = ""
 	if curr_battle_state == BattleState.PLAYER_WON:
+		
+		## Move on to the next battle in the scenario:
+		Global.curr_battle += 1
+		
 		rewardsmsg = str("[type speed=40]VICTORY!\n\n")
 		rewardsmsg += str(" You gain ",opponent.experience_points," experience points!\n\n")
 		if opponent.money > 0:
@@ -250,6 +254,8 @@ func _on_btn_end_battle_pressed():
 	}
 	
 	if curr_battle_state == BattleState.PLAYER_WON:
+		if Global.curr_battle >= len(Global.scenarioDB[Global.curr_scenario]):
+			GGT.change_scene("res://scenes/victory_screen/victory_screen.gd",params)
 		GGT.change_scene("res://scenes/charactermanagement/character_management.tscn", params)
 	elif curr_battle_state == BattleState.PLAYER_LOST:
 		GGT.change_scene("res://scenes/menu/menu.tscn", params)

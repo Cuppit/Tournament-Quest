@@ -15,6 +15,7 @@ config/description="Alpha stage demo of a turn-based RPG point-n-click battler g
 config/version="0.0.1"
 run/main_scene="res://scenes/menu/menu.tscn"
 config/features=PackedStringArray("4.4")
+boot_splash/image="uid://st3k366bapqg"
 config/icon="uid://ce80qs8w6wbmo"
 
 [autoload]

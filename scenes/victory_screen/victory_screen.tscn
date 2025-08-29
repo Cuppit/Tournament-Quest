@@ -1,0 +1,36 @@
+[gd_scene load_steps=2 format=3 uid="uid://u6wjctfqr081"]
+
+[ext_resource type="Script" uid="uid://bum1an23pqyt" path="res://scenes/victory_screen/victory_screen.gd" id="1_rgl4p"]
+
+[node name="VictoryScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rgl4p")
+
+[node name="lblVictoryMsg" type="Label" parent="."]
+layout_mode = 0
+offset_left = 340.0
+offset_top = 32.0
+offset_right = 881.0
+offset_bottom = 60.0
+text = "Congratulations you cleared all the battles in the scenario!"
+
+[node name="btnBacktoMainMenu" type="Button" parent="."]
+layout_mode = 0
+offset_left = 484.0
+offset_top = 293.0
+offset_right = 701.0
+offset_bottom = 329.0
+text = "Return to Main Screen
+"
+
+[node name="trPlayerPortrait" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 570.0
+offset_top = 151.0
+offset_right = 610.0
+offset_bottom = 193.0

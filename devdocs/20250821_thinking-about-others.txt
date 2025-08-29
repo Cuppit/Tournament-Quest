@@ -1,0 +1,25 @@
+-- 07:09 CDT --
+
+The game has two  problems:
+	-it's ugly
+	-it's not fun'
+	
+For a game like this, the majority of the fun comes from seeing and understanding
+choices and options, and seeing the immediate result of those choices.
+
+For example, there's a ton of polish needed for the character management 
+screen, such that a player can instantly see why a loadout is good, or what
+impact something will have.
+
+It's also not fun to fight because the UI sucks.  There needs to be clear
+visual indicators of what's going on, not a dry report in a log at the 
+bottom of the screen.
+
+So: let the UI be the UI, and give an actual presentation, with kinematic bodies,
+and animations.  
+
+IDEA: make a generic character rig
+Straight form the source: https://docs.godotengine.org/en/stable/tutorials/animation/2d_skeletons.html
+Excellent tutorial video: https://www.youtube.com/watch?v=GQLL7laFqQY
+.  At this point this is turning into
+almost exactly a Sonny clone.

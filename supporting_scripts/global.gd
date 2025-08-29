@@ -116,3 +116,21 @@ func generate_scenario_battle_descriptions(scenario, id):
 	desc[BattleChoice.OPPONENT3]['rewards'] = rewards_str
 	
 	return desc
+
+
+## Used for selecting any pieces of data dependent on a 
+## weighted outcome.
+func choose_weighted_outcome(outcomes:Dictionary):
+	var weights = outcomes.values()
+	var total_weight = 0
+	for w in weights:
+		total_weight += w
+	var rand_choice = rng.randi_range(1, total_weight)
+	var cumulative_weight = 0
+	var selection = null
+	for outcome in outcomes.keys():
+		cumulative_weight += outcomes[outcome]
+		if rand_choice <= cumulative_weight:
+			selection = outcome
+			break
+	return selection

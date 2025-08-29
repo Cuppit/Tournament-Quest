@@ -65,8 +65,11 @@ func build_character_db():
 									 ,Attitude.DEFENSIVE:["The guard squats into a steady stance!","The guard points his weapon at you while leaning back!"]\
 									 ,Attitude.FAINTING:["Heavy breathing's coming through the mask!","The guard's clearly in pain!","Trembling, the guard struggles to stay standing!"]\
 									 ,Attitude.DEFEATED:["The guard falls down limply!","The guard cries out in pain before collapsing!","You defeated the guard!"]},\
-									GameCharacter.DEFAULT_ACTION_PREFS,\
-									{},\
+									{ Attitude.NEUTRAL:{"attack":5,"guard":1}\
+										,Attitude.AGGRESSIVE:{"attack":1,"Power Attack":3}\
+										,Attitude.DEFENSIVE:{"guard":3,"attack":1}\
+										,Attitude.FAINTING:{"attack":1,"guard":1,"Power Attack":1}},\
+									{"Power Attack":0},\
 									10,\
 									10,\
 									preload("res://assets/sprites/draft_resources/prisonguard.png"),\
@@ -76,6 +79,33 @@ func build_character_db():
 	db["Prison Guard"].gain_item("Healing Salve")
 	db["Prison Guard"].experience_points = 20
 	db["Prison Guard"].money = 20
+	
+	
+	
+	db["Alchemist"]=GameCharacter.new("Alchemist", \
+									{Stat.STR:2,Stat.DEX:3,Stat.CON:2,Stat.INT:4,Stat.WIS:4,Stat.CHA:4,Stat.BELT_CAP:1}, \
+									"Spike Shield", \
+									"Robe",\
+									"Side Satchel",\
+									{Attitude.NEUTRAL:3,Attitude.AGGRESSIVE:2,Attitude.DEFENSIVE:2},\
+									{Attitude.NEUTRAL:["The alchemist stands ready.","You hear him muttering 'not paid enough for this...'","The alchemist adjusts his potion satchel.","You hear him whisper 'My potions are too strong for you...'"]\
+									 ,Attitude.AGGRESSIVE:["The alchemist reaches for a potion!","Brandishing some viscous fluid, he boasts 'you didn't see this coming'!"]\
+									 ,Attitude.DEFENSIVE:["The alchemist squats into a charging stance!","He ducks behind his shield and changes his footing!"]\
+									 ,Attitude.FAINTING:["He groans 'It wasn't supposed to end this way...'","His breathing is suddenly labored!","Trembling, the alchemist struggles to stay standing!"]\
+									 ,Attitude.DEFEATED:["The alchemist crumples into a pile over his shield!","The alchemist cries out in pain before collapsing!","You defeated the alchemist!"]},\
+									{ Attitude.NEUTRAL:{"attack":1,"guard":1,"use_item":1}\
+										,Attitude.AGGRESSIVE:{"use_item":1}\
+										,Attitude.DEFENSIVE:{"guard":1,"Shield Charge":1}\
+										,Attitude.FAINTING:{"attack":1,"guard":1,"Shield Charge":1}},\
+									{"Shield Charge":0},\
+									30,\
+									30,\
+									preload("res://assets/sprites/draft_resources/alchemist.png"),\
+									"A disgruntled researcher that slings dangerous concoctions in battle.",\
+									"-Throws damaging substances that ignore ordinary armor\n \
+									 -Uses Shield Charge, an attack that puts the user into a guarding state"
+									)
+	db["Alchemist"].gain_item("Potion of Acid")
 	
 	
 	db["Fighter"]=GameCharacter.new("Fighter",\
